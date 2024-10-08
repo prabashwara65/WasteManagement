@@ -5,6 +5,8 @@ import jwt from 'jsonwebtoken'
 
 const router = express.Router();
 
+
+
 router.post('/register', async (req, res) => {
     const { username, email, password } = req.body;
     try {
@@ -33,6 +35,7 @@ router.post('/register', async (req, res) => {
     }
 });
 
+
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
     try {
@@ -46,14 +49,17 @@ router.post('/login', async (req, res) => {
 
         const user = rows[0];
 
-        // Compare the plain text password
-        if (user.password === password) {
-            return res.status(200).json({ token: token });
-        } else {
-            return res.status(401).json({ message: "Invalid credentials" });
-        }
-
         const token = jwt.sign({id: rows[0].id}, process.env.JWT , {expiresIn: '3h'})
+
+        // Compare the plain text password
+        if (user.password == password) {
+            return res.status(201).json({ token: token });
+        } else {
+            console.log("databse pass-"+user.password)
+            console.log("databse pass -"+password)
+            return res.status(401).json({ message: "Invalid credentials" });
+            
+        }
 
 
     } catch (err) {
