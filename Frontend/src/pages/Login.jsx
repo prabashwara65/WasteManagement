@@ -19,7 +19,12 @@ const Login = () => {
        try{
         const res = await axios.post('http://localhost:3000/auth/login' , values)
         if(res.status === 201){
-          navigate('/')
+
+          if(res.data.role === "admin"){
+            console.log(res.data.role === 'admin')
+            navigate('/Dashboard')
+          }
+            navigate('/')
         }
        }catch(err){
           console.log(err);

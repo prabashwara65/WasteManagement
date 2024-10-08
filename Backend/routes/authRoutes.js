@@ -53,10 +53,12 @@ router.post('/login', async (req, res) => {
 
         // Compare the plain text password
         if (user.password == password) {
+            if(user.role == 'admin'){
+                return res.status(201).json({ token: token , role: user.role });
+            }
             return res.status(201).json({ token: token });
         } else {
-            console.log("databse pass-"+user.password)
-            console.log("databse pass -"+password)
+
             return res.status(401).json({ message: "Invalid credentials" });
             
         }

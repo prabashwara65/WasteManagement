@@ -20,6 +20,7 @@ const Register = () => {
        try{
         const res = await axios.post('http://localhost:3000/auth/register' , values)
         if(res.status === 201){
+          
           navigate('/login')
         }
        }catch(err){
