@@ -1,6 +1,16 @@
 import express from 'express'
-const app = express()
+import cors from 'cors'
+import authRouter from './routes/authRoutes.js'
+import dotenv from 'dotenv';
+dotenv.config();
 
-app.listen(3000, () => {
+
+const app = express()
+app.use(cors())
+app.use(express.json())
+
+app.use('/auth' , authRouter )
+
+app.listen(process.env.PORT, () => {
     console.log("server is running")
 })
