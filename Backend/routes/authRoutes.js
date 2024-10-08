@@ -1,6 +1,7 @@
-import express from 'express';
+import express, { json } from 'express';
 import { connectToDatabase } from '../lib/db.js'; // Fix the function name
 // import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken'
 
 const router = express.Router();
 
@@ -47,10 +48,12 @@ router.post('/login', async (req, res) => {
 
         // Compare the plain text password
         if (user.password === password) {
-            return res.status(200).json({ message: "Login successful" });
+            return res.status(200).json({ token: token });
         } else {
             return res.status(401).json({ message: "Invalid credentials" });
         }
+
+        const token = jwt.sign({id: rows[0].id}, process.env.JWT , {expiresIn: '3h'})
 
 
     } catch (err) {
