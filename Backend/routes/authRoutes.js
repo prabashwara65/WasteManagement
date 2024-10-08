@@ -32,4 +32,31 @@ router.post('/register', async (req, res) => {
     }
 });
 
+router.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const db = await connectToDatabase();
+        
+        // Check if the user already exists
+        const [rows] = await db.query('SELECT * FROM users WHERE email = ?', [email]);
+        if (rows.length === 0) {
+            return res.status(404).json({ message: "User not exists" });
+        }
+
+        const user = rows[0];
+
+        // Compare the plain text password
+        if (user.password === password) {
+            return res.status(200).json({ message: "Login successful" });
+        } else {
+            return res.status(401).json({ message: "Invalid credentials" });
+        }
+
+
+    } catch (err) {
+        // Return internal server error
+        res.status(500).json({ error: err.message });
+    }
+});
+
 export default router;
