@@ -1,9 +1,17 @@
+import { BrowserRouter , Routes , Route } from 'react-router-dom'
+import Home from './pages/Home'
+import Register from './pages/Register'
 
 function App() {
 
   return (
     <>
-      <div className="bg-red-500 text-teal-400">Hi</div>
+      <BrowserRouter >
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/Register' element={<Register />} />
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
