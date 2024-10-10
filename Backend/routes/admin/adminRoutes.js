@@ -35,4 +35,24 @@ router.post('/create', async (req, res) => {
     }
 });
 
+// Update data in database
+router.put('/update/:id', async (req, res) => {
+    const db = await connectToDatabase(); 
+    const sql = "UPDATE admins SET `username` = ?, `email` = ?, `department` = ? WHERE id = ?";
+    const values = [
+        req.body.username,
+        req.body.email,
+        req.body.department,
+        req.params.id // Add the ID to the values array
+    ];
+
+    try {
+        const [result] = await db.query(sql, values); // Execute the update query with the values
+        return res.status(200).json({ message: "Admin updated successfully", data: result }); // Respond with a success message
+    } catch (err) {
+        console.error("Error updating data", err);
+        return res.status(500).json("Error updating data"); // Handle error
+    }
+});
+
 export default router;

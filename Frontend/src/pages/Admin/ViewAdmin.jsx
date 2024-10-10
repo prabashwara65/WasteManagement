@@ -39,9 +39,9 @@ function ViewAdmin() {
                 <td className="px-6 py-3">{data.department}</td>
                 <td className="px-6 py-3">{data.created_at}</td>
                 <td>
-                  <button className="bg-gray-500 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded mr-2">
+                  <Link to={`updateAdmin/${data.id}`}  className="bg-gray-500 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded mr-2">
                     Edit
-                  </button>
+                  </Link>
                   <button className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded">
                     Delete
                   </button>
