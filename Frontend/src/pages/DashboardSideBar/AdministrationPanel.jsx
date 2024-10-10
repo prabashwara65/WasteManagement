@@ -1,35 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { FaUserShield, FaUser } from 'react-icons/fa'; // Importing icons
 
-const AdminUserButtons = () => {
+const AdministrationPanel = () => {
+  const [selectedOption, setSelectedOption] = useState(''); // State to store selected option
+
+  const handleChange = (event) => {
+    const value = event.target.value;
+    setSelectedOption(value); // Update state without navigation
+  };
+
   return (
-    <div className="flex justify-around mt-6">
-      {/* Admin Button */}
-      <a
-        href="/admin"
-        className="flex flex-col items-center bg-white shadow-lg rounded-lg p-4 hover:shadow-xl transition-shadow"
-      >
-        <img 
-          src="path/to/admin-image.jpg"  // Replace with your Admin image path
-          alt="Admin"
-          className="w-16 h-16 object-cover mb-2"
-        />
-        <span className="font-bold text-gray-800">Admin</span>
-      </a>
+    <div className="flex flex-col space-y-4 items-start ml-4"> {/* Align to left with margin */}
+      {/* Icons displayed based on selection */}
+      <div className="flex justify-center mb-2 ml-28">
+        {selectedOption === '/admin' && (
+          <FaUserShield className="text-blue-600 text-4xl" />
+        )}
+        {selectedOption === '/user' && (
+          <FaUser className="text-blue-600 text-4xl" />
+        )}
+      </div>
 
-      {/* User Button */}
-      <a
-        href="/user"
-        className="flex flex-col items-center bg-white shadow-lg rounded-lg p-4 hover:shadow-xl transition-shadow"
+      <select
+        id="admin-user-select"
+        value={selectedOption}
+        onChange={handleChange} // Update selected option
+        className="w-64 bg-white border border-blue-600 font-semibold rounded-lg shadow-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:bg-blue-200 transition-colors"
       >
-        <img 
-          src="path/to/user-image.jpg"  // Replace with your User image path
-          alt="User"
-          className="w-16 h-16 object-cover mb-2"
-        />
-        <span className="font-bold text-gray-800">User</span>
-      </a>
+        <option value="">Select an option</option>
+        <option value="/admin">Admin Details</option>
+        <option value="/user">User Details</option>
+      </select>
     </div>
   );
 };
 
-export default AdminUserButtons;
+export default AdministrationPanel;

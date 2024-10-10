@@ -22,7 +22,7 @@ function Dashboard() {
       case 'profile':
         return <div>Profile Content</div>;
       case 'logout':
-          return <div>logOut Content</div>;
+          // return <div>logOut Content</div>;
       default:
         return <Overwiew/>;
     }
