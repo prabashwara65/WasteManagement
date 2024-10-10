@@ -11,6 +11,15 @@ function ViewAdmin() {
     .catch(err => console.log(err))
  }, [])
 
+ const handleDelete = async(id) => {
+    try {
+        await axios.delete(`http://localhost:3000/admins/delete/${id}`)
+        window.location.reload()
+    }catch (err) {
+        console.log(err);
+    }
+ }
+
   return (
     <div className="flex h-screen bg-blue-800 justify-center items-center">
       <div className="w-3/4 bg-white rounded-lg p-3">
@@ -42,7 +51,8 @@ function ViewAdmin() {
                   <Link to={`updateAdmin/${data.id}`}  className="bg-gray-500 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded mr-2">
                     Edit
                   </Link>
-                  <button className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded">
+                  <button className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded"
+                  onClick={e => handleDelete(data.id)}>
                     Delete
                   </button>
                 </td>

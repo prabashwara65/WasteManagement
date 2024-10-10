@@ -55,4 +55,23 @@ router.put('/update/:id', async (req, res) => {
     }
 });
 
+// Delete data from database
+router.delete('/delete/:id', async (req, res) => {
+    const db = await connectToDatabase(); 
+    const sql = "DELETE FROM admins WHERE id = ?";
+    const id = req.params.id; 
+
+    try {
+        const [result] = await db.query(sql, [id]); 
+        if (result.affectedRows > 0) {
+            return res.status(200).json({ message: "Admin deleted successfully" }); 
+        } else {
+            return res.status(404).json({ message: "Admin not found" }); 
+        }
+    } catch (err) {
+        console.error("Error deleting data", err);
+        return res.status(500).json("Error deleting data"); 
+    }
+});
+
 export default router;
