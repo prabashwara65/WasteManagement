@@ -58,8 +58,7 @@ function CreateAdmin() {
             value={department}
             onChange={e => setDepartment(e.target.value)}
             className="border border-gray-300 rounded-lg w-full p-2"
-            required
-          >
+            required>
             <option value="">Select Department</option>
             <option value="recycling">Recycling</option>
             <option value="waste collection">Waste Collection</option>
