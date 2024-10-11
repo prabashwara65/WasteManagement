@@ -55,6 +55,24 @@ router.put('/update/:id', async (req, res) => {
     }
 });
 
+
+// View specific admin details
+router.get("/admin/:id", async (req, res) => {
+    try {
+      const db = await connectToDatabase();
+      const [rows] = await db.query("SELECT * FROM admins WHERE id = ?", [req.params.id]);
+      if (rows.length > 0) {
+        return res.status(200).json(rows[0]); // Return only the first matching admin
+      } else {
+        return res.status(404).json({ message: "Admin not found" });
+      }
+    } catch (err) {
+      console.error("Error executing query", err);
+      return res.status(500).json("Error executing query");
+    }
+  });
+  
+
 // Delete data from database
 router.delete('/delete/:id', async (req, res) => {
     const db = await connectToDatabase(); 
