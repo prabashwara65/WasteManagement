@@ -10,7 +10,7 @@ const AdministrationPanel = () => {
   };
 
   return (
-    <div className="flex flex-col space-y-4 items-start ml-4 w-full relative">
+    <div className="flex flex-col space-y-4 items-start ml-4 w-full h-screen relative">
       {/* Icons displayed based on selection */}
       <div className="flex justify-center mb-2 ml-28">
         {selectedOption === 'admin' && (
