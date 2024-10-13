@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import Modal from './Modal';  
+import Modal from './Modal';
 
 function ViewAdmin() {
   const [admin, setAdmin] = useState([]);
-  const [selectedAdmin, setSelectedAdmin] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditing, setIsEditing] = useState(false); // New state to check if we're editing or creating
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -20,10 +19,18 @@ function ViewAdmin() {
       .catch(err => console.log(err));
   }, []);
 
+  // Open the modal for creating a new admin
+  const openCreateModal = () => {
+    setIsEditing(false); // We're not editing, we're creating a new admin
+    setFormData({ username: '', email: '', department: '' }); // Clear the form
+    setIsModalOpen(true);
+  };
+
   // Open the modal and set the selected admin for editing
-  const openModal = (adminData) => {
-    setSelectedAdmin(adminData);
+  const openEditModal = (adminData) => {
+    setIsEditing(true); // We're editing an existing admin
     setFormData({
+      id: adminData.id,
       username: adminData.username,
       email: adminData.email,
       department: adminData.department,
@@ -34,7 +41,6 @@ function ViewAdmin() {
   // Close the modal
   const closeModal = () => {
     setIsModalOpen(false);
-    setSelectedAdmin(null);
   };
 
   // Handle form input changes
@@ -42,15 +48,27 @@ function ViewAdmin() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle the form submission for updating the admin
+  // Handle the form submission for creating or updating an admin
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await axios.put(`http://localhost:3000/admins/update/${selectedAdmin.id}`, formData);
-      setIsModalOpen(false);  // Close modal after successful update
-      window.location.reload(); // Reload the page to show the updated data
-    } catch (error) {
-      console.log('Error updating admin:', error);
+    if (isEditing) {
+      // Update admin
+      try {
+        await axios.put(`http://localhost:3000/admins/update/${formData.id}`, formData);
+        setIsModalOpen(false);  // Close modal after successful update
+        window.location.reload(); // Reload the page to show the updated data
+      } catch (error) {
+        console.log('Error updating admin:', error);
+      }
+    } else {
+      // Create new admin
+      try {
+        await axios.post('http://localhost:3000/admins/create', formData);
+        setIsModalOpen(false);  // Close modal after successful creation
+        window.location.reload(); // Reload the page to show the new admin
+      } catch (error) {
+        console.log('Error creating admin:', error);
+      }
     }
   };
 
@@ -67,12 +85,14 @@ function ViewAdmin() {
   return (
     <div className="flex h-screen bg-blue-300 justify-center items-center">
       <div className=" bg-white rounded-lg p-3" style={{ width: '90%' }}>
-        <Link
-          to="/createAdmin"
+        {/* Add New Admin Button */}
+        <button
+          onClick={openCreateModal} // Open modal to create a new admin
           className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600 m-5"
         >
           Add New Admin
-        </Link>
+        </button>
+
         <div className="mt-2 max-h-96 overflow-y-auto">
           <table className="mt-10 able-auto w-full border-collapse">
             <thead>
@@ -94,14 +114,15 @@ function ViewAdmin() {
                   <td className="px-6 py-3">{data.department}</td>
                   <td className="px-6 py-3">{data.created_at}</td>
                   <td>
-                    {/* Use flex to align buttons in a row */}
                     <div className="flex space-x-2">
+                      {/* Edit Button */}
                       <button
                         className="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded"
-                        onClick={() => openModal(data)}
+                        onClick={() => openEditModal(data)}
                       >
                         Edit
                       </button>
+                      {/* Delete Button */}
                       <button
                         className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded"
                         onClick={() => handleDelete(data.id)}
@@ -117,9 +138,9 @@ function ViewAdmin() {
         </div>
       </div>
 
-      {/* Modal for editing admin */}
+      {/* Modal for creating or editing an admin */}
       <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <h2 className="text-xl font-semibold mb-4">Edit Admin</h2>
+        <h2 className="text-xl font-semibold mb-4">{isEditing ? 'Edit Admin' : 'Add New Admin'}</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block mb-2">Username</label>
@@ -144,25 +165,26 @@ function ViewAdmin() {
             />
           </div>
           <div className="mb-4">
-          <label htmlFor="department" className="block text-gray-700 mb-2">Department</label>
-          <select
-            id="department"
-            name="department"
-            value={formData.department}
-            onChange={handleChange}
-            className="border border-gray-300 rounded-lg w-full p-2"
-            required>
-            <option value="">Select Department</option>
-            <option value="recycling">Recycling</option>
-            <option value="waste collection">Waste Collection</option>
-            <option value="hazardous waste">Hazardous Waste Management</option>
-            <option value="composting">Composting</option>
-            <option value="landfill management">Landfill Management</option>
-          </select>
-        </div>
+            <label htmlFor="department" className="block text-gray-700 mb-2">Department</label>
+            <select
+              id="department"
+              name="department"
+              value={formData.department}
+              onChange={handleChange}
+              className="border border-gray-300 rounded-lg w-full p-2"
+              required
+            >
+              <option value="">Select Department</option>
+              <option value="recycling">Recycling</option>
+              <option value="waste collection">Waste Collection</option>
+              <option value="hazardous waste">Hazardous Waste Management</option>
+              <option value="composting">Composting</option>
+              <option value="landfill management">Landfill Management</option>
+            </select>
+          </div>
           <div className="flex justify-end">
             <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
-              Update
+              {isEditing ? 'Update' : 'Create'}
             </button>
             <button type="button" onClick={closeModal} className="ml-4 bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-700">
               Cancel
