@@ -23,7 +23,7 @@ function ViewAdmin() {
 
   return (
     <div className="flex h-screen bg-blue-300 justify-center items-center">
-      <div className="w-3/4 bg-white rounded-lg p-3">
+      <div className=" bg-white rounded-lg p-3" style={{ width: '90%' }}>
         <Link
           to="/createAdmin"
           className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600 m-5" >
