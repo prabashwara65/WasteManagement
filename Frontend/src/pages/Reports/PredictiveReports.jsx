@@ -85,7 +85,7 @@ function Report() {
       <div className="container p-4 h-screen mb-5">
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-xl font-bold">
-            Clean SCAPE Waste Generation and Collection Report
+          Predictive Waste Generation and Collection Report
           </h1>
           <div className="flex space-x-4">
             <button
@@ -114,7 +114,7 @@ function Report() {
               Generated on: {new Date().toLocaleDateString()}
             </p>
             <p className="text-sm text-gray-800">
-              Contact Us:  CleanSCAPE@gmail.com{" "}
+              Contact Us:  CleanSCAPE@gmail.com
             </p>
           </header>
 
