@@ -1,49 +1,56 @@
 import React, { useState } from 'react';
 import { FaUserShield, FaUser } from 'react-icons/fa';
-import AdminCrudTable from '../Admin/ViewAdmin'
+import AdminCrudTable from '../Admin/ViewAdmin';
 
 const AdministrationPanel = () => {
-  const [selectedOption, setSelectedOption] = useState(''); // State to store selected option
+  const [activeSection, setActiveSection] = useState('admin'); // Default to 'admin'
 
-  const handleChange = (event) => {
-    const value = event.target.value;
-    setSelectedOption(value);
+  const renderContent = () => {
+    switch (activeSection) {
+      case 'admin':
+        return <AdminCrudTable />;
+      case 'user':
+        return <p className="text-gray-600">User table will be displayed here.</p>;
+      default:
+        return null;
+    }
   };
 
   return (
-    <div className="flex flex-col space-y-4 items-start ml-4 w-100 h-screen relative">
-      {/* Icons displayed based on selection */}
-      <div className="flex justify-center mb-2 ml-28">
-        {selectedOption === "admin" && (
-          <FaUserShield className="text-blue-600 text-4xl" />
-        )}
-        {selectedOption === "user" && (
-          <FaUser className="text-blue-600 text-4xl" />
-        )}
+    <div className="flex flex-col items-center min-h-screen">
+      <h1 className="text-3xl font-bold mt-8 mb-8">Administration Panel</h1>
+
+      {/* Buttons for Admin and User views */}
+      <div className="flex space-x-6 mb-8">
+        <button
+          onClick={() => setActiveSection("admin")}
+          className={`relative px-10 py-4 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 
+            ${
+              activeSection === "admin"
+                ? "bg-gradient-to-r from-green-500 to-blue-600 text-white"
+                : "bg-gradient-to-r from-gray-500 to-gray-600 text-white"
+            }`}
+        >
+          <FaUserShield className="inline-block mr-2 text-xl" />
+          Admin Dashboard
+        </button>
+        <button
+          onClick={() => setActiveSection("user")}
+          className={`relative px-10 py-4 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 
+            ${
+              activeSection === "user"
+                ? "bg-gradient-to-r from-purple-500 to-pink-600 text-white"
+                : "bg-gradient-to-r from-gray-500 to-gray-600 text-white"
+            }`}
+        >
+          <FaUser className="inline-block mr-2 text-xl" />
+          User Dashboard
+        </button>
       </div>
 
-      <select
-        id="admin-user-select"
-        value={selectedOption}
-        onChange={handleChange}
-        className="w-64 bg-white border border-blue-600 font-semibold rounded-lg shadow-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:bg-blue-200 transition-colors"
-      >
-        <option value="admin">Admin </option>
-        <option value="user">User </option>
-      </select>
-
-      {/* CRUD Table Container */}
-      <div className="flex-1 bg-gray-100 p-2 rounded-lg shadow-md w-full mt-6">
-        {/* Conditionally render the Admin CRUD Table */}
-        {selectedOption === "admin" && (
-          <div className="overflow-x-auto w-100">
-            <AdminCrudTable />
-          </div>
-        )}
-        {/* Placeholder for User CRUD Table or other content can be added here */}
-        {selectedOption === "user" && (
-          <p className="text-gray-600">User table will be displayed here.</p>
-        )}
+      {/* Displaying the content based on selected option */}
+      <div className="w-75 bg-white p-5 rounded-lg shadow-lg mb-5 ">
+        {renderContent()}
       </div>
     </div>
   );
