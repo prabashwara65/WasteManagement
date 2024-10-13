@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaUserShield, FaUser } from 'react-icons/fa';
+import AdminCrudTable from '../Admin/ViewAdmin'
 
 const AdministrationPanel = () => {
   const [selectedOption, setSelectedOption] = useState(''); // State to store selected option
@@ -35,7 +36,7 @@ const AdministrationPanel = () => {
      <div className="flex-1 bg-gray-100 p-4 rounded-lg shadow-md w-full mt-6">
         <h2 className="text-lg font-bold mb-2">CRUD Table Container</h2>
         {/* Conditionally render the Admin CRUD Table */}
-        {/* {selectedOption === 'admin' && <AdminCrudTable />} */}
+        {selectedOption === 'admin' && <AdminCrudTable />}
         {selectedOption === 'admin' && <p className="text-gray-600">Admin table will be displayed here.</p>}
         {/* Placeholder for User CRUD Table or other content can be added here */}
         {selectedOption === 'user' && <p className="text-gray-600">User table will be displayed here.</p>}
