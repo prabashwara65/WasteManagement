@@ -5,6 +5,7 @@ import { IoPersonAddSharp, IoSettingsSharp, IoLogOutOutline } from "react-icons/
 import Overview from "./DashboardSideBar/DashboardOverview";
 import Administration from "./DashboardSideBar/AdministrationPanel";
 import Reports from "./DashboardSideBar/Reports";
+import Settings from './DashboardSideBar/Settings';
 
 function Dashboard() {
   const [activePage, setActivePage] = useState('overview');
@@ -19,7 +20,7 @@ function Dashboard() {
       case 'analytics':
         return <Reports />;
       case 'settings':
-        return <div>Settings Content</div>;
+        return <Settings/>;
       case 'profile':
         return <div>Profile Content</div>;
       case 'logout':
