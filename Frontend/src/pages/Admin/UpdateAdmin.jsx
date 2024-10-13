@@ -1,40 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 function UpdateAdmin() {
-  const [username, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [department, setDepartment] = useState('');
+  const [username, setName] = useState('')
+  const [email , setEmail] = useState('')
+  const [department, setDepartment] = useState('')
   const navigate = useNavigate();
-  const { id } = useParams();
-
-  // Fetch the admin details on component mount
-  useEffect(() => {
-    axios.get(`http://localhost:3000/admins/admin/${id}`) // API to fetch admin details by ID
-      .then((res) => {
-        setName(res.data.username);   // Set state with the fetched data
-        setEmail(res.data.email);
-        setDepartment(res.data.department);
-      })
-      .catch(err => console.log(err));
-  }, [id]);
+  const {id} = useParams();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.put(`http://localhost:3000/admins/update/${id}`, { username, email, department })
-      .then(res => {
-        console.log(res);
-        navigate('/viewAdmin');
-      })
-      .catch(err => console.log(err));
+    axios.put("http://localhost:3000/admins/update/"+id, {username, email, department})
+        .then(res => {
+            console.log(res);
+            navigate('/viewAdmin');
+        }).catch(err => console.log(err))
   };
+
 
   return (
     <div className="flex h-screen bg-blue-700 justify-center items-center">
       <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-lg w-96">
-        <h2 className="text-2xl mb-4 text-center font-bold">Edit Admin Information</h2>
-
+        <h2 className="text-2xl mb-4 text-center text-bold">Edit Admin Information</h2>
+        
         <div className="mb-4">
           <label htmlFor="name" className="block text-gray-700 mb-2">Name</label>
           <input
@@ -43,7 +32,7 @@ function UpdateAdmin() {
             name="name"
             value={username}
             onChange={e => setName(e.target.value)}
-            placeholder="Enter name"
+            placeholder='add name'
             className="border border-gray-300 rounded-lg w-full p-2"
             required
           />
@@ -57,7 +46,7 @@ function UpdateAdmin() {
             name="email"
             value={email}
             onChange={e => setEmail(e.target.value)}
-            placeholder="Enter email"
+            placeholder='add email'
             className="border border-gray-300 rounded-lg w-full p-2"
             required
           />
@@ -89,4 +78,4 @@ function UpdateAdmin() {
   );
 }
 
-export default UpdateAdmin;
+export default UpdateAdmin
