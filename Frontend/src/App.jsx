@@ -6,6 +6,10 @@ import Dashboard from './pages/Dashboard'
 import Admin from './pages/Admin/ViewAdmin'
 import CreateAdmin from './pages/Admin/createAdmin'
 import UpdateAdmin from './pages/Admin/UpdateAdmin'
+import ViewCollectors from './pages/Collector/ViewCollectors'
+import CreateCollectors from './pages/Collector/createCollector'
+import UpdateCollectors from './pages/Collector/UpdateCollectors'
+import MapView from './pages/Collector/mapview'
 
 function App() {
 
@@ -21,6 +25,12 @@ function App() {
           <Route path='/viewAdmin' element={<Admin/>} />
           <Route path='/createAdmin' element={<CreateAdmin/>} />
           <Route path='/viewAdmin/updateAdmin/:id' element={<UpdateAdmin/>} />
+
+          <Route path='/ViewCollectors' element={<ViewCollectors/>} />
+          <Route path='/CreateCollectors' element={<CreateCollectors/>} />
+          <Route path='/UpdateCollector/:id' element={<UpdateCollectors/>} />
+
+          <Route path='/mapview' element={<MapView/>} />
 
         </Routes>
       </BrowserRouter>

@@ -1,0 +1,60 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Colombo"
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [79.8498, 6.9271],
+              [79.8508, 6.9271],
+              [79.8508, 6.9281],
+              [79.8498, 6.9281],
+              [79.8498, 6.9271]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Kandy"
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [80.6337, 7.2906],
+              [80.6347, 7.2906],
+              [80.6347, 7.2916],
+              [80.6337, 7.2916],
+              [80.6337, 7.2906]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Galle"
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [80.2170, 6.0392],
+              [80.2180, 6.0392],
+              [80.2180, 6.0402],
+              [80.2170, 6.0402],
+              [80.2170, 6.0392]
+            ]
+          ]
+        }
+      }
+    ]
+  }
+  
