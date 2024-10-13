@@ -22,6 +22,8 @@ function App() {
           <Route path='/createAdmin' element={<CreateAdmin/>} />
           <Route path='/viewAdmin/updateAdmin/:id' element={<UpdateAdmin/>} />
 
+          
+
         </Routes>
       </BrowserRouter>
     </>
