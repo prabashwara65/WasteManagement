@@ -49,7 +49,7 @@ const AdministrationPanel = () => {
       </div>
 
       {/* Displaying the content based on selected option */}
-      <div className="w-75 bg-white p-5 rounded-lg shadow-lg mb-5 ">
+      <div className="w-75 bg-white  rounded-lg shadow-lg mb-5 ">
         {renderContent()}
       </div>
     </div>

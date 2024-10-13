@@ -85,7 +85,7 @@ function Report() {
       <div className="container p-4 h-screen mb-5">
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-xl font-bold">
-            Green City Concept Waste Generation and Collection Report
+            Clean SCAPE Waste Generation and Collection Report
           </h1>
           <div className="flex space-x-4">
             <button
@@ -108,13 +108,13 @@ function Report() {
         <div ref={reportRef} className="bg-white p-10 border rounded-lg">
           <header className="mb-5 border-b pb-3">
             <h2 className="text-xl font-semibold text-black">
-              Green City Concept: Garbage Collection System
+            Clean SCAPE: Garbage Collection System
             </h2>
             <p className="text-sm text-gray-800">
               Generated on: {new Date().toLocaleDateString()}
             </p>
             <p className="text-sm text-gray-800">
-              Contact Us: GreenCityConcept@gmail.com{" "}
+              Contact Us:  CleanSCAPE@gmail.com{" "}
             </p>
           </header>
 
@@ -197,7 +197,7 @@ function Report() {
 
           <footer className="border-t pt-3">
             <p className="text-sm text-gray-500">
-              © 2024 GreenCityConcept Report System
+              © 2024  Clean SCAPE Report System
             </p>
           </footer>
         </div>
