@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Report3 from '../Reports/PredictiveReports'
 import Report2 from '../Reports/WasteGenerationReport'
+import Report1 from '../Reports/UserDistributionReport'
 
 function Reports() {
   const [activeSection, setActiveSection] = useState('report1');
@@ -9,7 +10,7 @@ function Reports() {
   const renderContent = () => {
     switch (activeSection) {
       case 'report1':
-        return <div className="p-4">Content for Report 1</div>;
+        return <Report1/>;
       case 'report2':
         return <Report2/>
       case 'report3':
