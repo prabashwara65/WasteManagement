@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Report3 from '../PredictiveReports'
+import Report3 from '../Reports/PredictiveReports'
 
 function Reports() {
   const [activeSection, setActiveSection] = useState('report1');
