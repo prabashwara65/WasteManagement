@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Report3 from '../Reports/PredictiveReports'
+import Report2 from '../Reports/WasteGenerationReport'
 
 function Reports() {
   const [activeSection, setActiveSection] = useState('report1');
@@ -10,7 +11,7 @@ function Reports() {
       case 'report1':
         return <div className="p-4">Content for Report 1</div>;
       case 'report2':
-        return <div className="p-4">Content for Report 2</div>;
+        return <Report2/>
       case 'report3':
         return <Report3 />
       default:
