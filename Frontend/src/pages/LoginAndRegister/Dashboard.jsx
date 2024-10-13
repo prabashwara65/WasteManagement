@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { MdDashboard } from "react-icons/md";
 import { FaUsers, FaChartArea } from "react-icons/fa";
 import { IoPersonAddSharp, IoSettingsSharp, IoLogOutOutline } from "react-icons/io5";
-import Overview from "./DashboardSideBar/DashboardOverview";
-import Administration from "./DashboardSideBar/AdministrationPanel";
-import Reports from "./DashboardSideBar/Reports";
-import Settings from './DashboardSideBar/Settings';
+import Overview from "../DashboardSideBar/DashboardOverview";
+import Administration from "../DashboardSideBar/AdministrationPanel";
+import Reports from "../DashboardSideBar/Reports";
+import Settings from '../DashboardSideBar/Settings';
 
 function Dashboard() {
   const [activePage, setActivePage] = useState('overview');
