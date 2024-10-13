@@ -28,7 +28,7 @@ function Reports() {
           onClick={() => setActiveSection("report1")}
           className={`relative px-10 py-4 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 
          ${activeSection === "report1"  ? "bg-gradient-to-r from-green-500 to-blue-600 text-white": "bg-gradient-to-r from-gray-500 to-gray-600 text-white" }`}>
-            Users And Areas Report
+            User Distribution & Area Metrics Report
         </button>
         <button
           onClick={() => setActiveSection("report2")}
@@ -39,7 +39,7 @@ function Reports() {
                 : "bg-gradient-to-r from-gray-500 to-gray-600"
             }`}
         >
-          Area And Garbage Collection Report
+          Zone-Based Garbage Collection Report
         </button>
         <button
           onClick={() => setActiveSection("report3")}
