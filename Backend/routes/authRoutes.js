@@ -5,10 +5,17 @@ import jwt from 'jsonwebtoken'
 
 const router = express.Router();
 
-
+//     username: '',
+//     email: '',
+//     password: '',
+//     address_no: '',
+//     address_street: '',
+//     address_city: '',
+//     nic: '',
+//     phone: '',
 
 router.post('/register', async (req, res) => {
-    const { username, email, password } = req.body;
+    const { username, email, password, address_no, address_street , address_city, nic , phone} = req.body;
     try {
         const db = await connectToDatabase();
         
@@ -22,8 +29,8 @@ router.post('/register', async (req, res) => {
         //const hashPassword = await bcrypt.hash(password, 10);
         
         // Insert new user into the database
-        await db.query('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', 
-            [username, email, password]
+        await db.query('INSERT INTO users (username, email, password , address_no, address_street , address_city, nic , phone) VALUES (?, ?, ?,?, ?, ?,?,?)', 
+            [username, email, password , address_no, address_street , address_city, nic , phone]
         );
 
         // Return success response
