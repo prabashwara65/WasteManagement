@@ -2,7 +2,17 @@ import React, { useRef, useState, useEffect } from 'react';
 import { useReactToPrint } from 'react-to-print';
 import jsPDF from 'jspdf';
 import { Bar } from 'react-chartjs-2';
-import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Title, Legend, Filler } from 'chart.js';
+import axios from 'axios';
+import {
+    Chart as ChartJS,
+    BarElement,
+    CategoryScale,
+    LinearScale,
+    Tooltip,
+    Title,
+    Legend,
+    Filler,
+} from 'chart.js';
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Title, Legend, Filler);
 
@@ -24,17 +34,34 @@ function UserDistributionReport() {
         ],
     });
 
-    const updateChartData = (data) => {
-        const labels = [];
-        const userCounts = [];
+    // Function to filter users by area and update the chart and table data
+    const filterDataByArea = (data) => {
+        const areaData = {};
 
-        data.forEach(item => {
-            labels.push(item.area);
-            userCounts.push(item.userCount);
+        // Grouping users by area
+        data.forEach(user => {
+            const { address_city } = user;
+            if (!areaData[address_city]) {
+                areaData[address_city] = { address_city, userCount: 0 };
+            }
+            areaData[address_city].userCount += 1;
         });
 
+        const labels = [];
+        const userCounts = [];
+        const filteredUserData = [];
+
+        // Preparing data for chart and table
+        Object.values(areaData).forEach(item => {
+            labels.push(item.address_city);
+            userCounts.push(item.userCount);
+            filteredUserData.push(item);
+        });
+
+        setUserData(filteredUserData);  // Set table data
+
         setChartData({
-            labels: labels,
+            labels,
             datasets: [
                 {
                     label: 'Number of Users',
@@ -47,12 +74,27 @@ function UserDistributionReport() {
         });
     };
 
+    // Fetching user data from the server
+    useEffect(() => {
+        axios.get('http://localhost:3000/reports/viewDistribution')
+            .then(res => {
+                const allUsers = res.data;
+                filterDataByArea(allUsers);
+                setLoading(false);
+            })
+            .catch(err => {
+                setError(err.message);
+                setLoading(false);
+            });
+    }, []);
 
+    // Handle print functionality
     const handlePrint = useReactToPrint({
         content: () => reportRef.current,
         documentTitle: 'User Distribution Report',
     });
 
+    // Handle PDF download functionality
     const handleDownloadPDF = () => {
         const doc = new jsPDF('p', 'pt', 'a4');
         const content = reportRef.current;
@@ -118,7 +160,11 @@ function UserDistributionReport() {
                         User Distribution by Area
                     </h4>
                     <div className="bg-white p-5 border rounded-lg mb-4">
-                        {!loading && chartData && <Bar data={chartData} />}
+                        {!loading && chartData && (
+                            <div style={{ width: '75%', height: '300px' }}> 
+                                <Bar data={chartData} options={{ maintainAspectRatio: false }} />
+                            </div>
+                        )}
                     </div>
 
                     <h4 className="text-lg font-bold text-black mt-5">Data Analysis</h4>
@@ -139,13 +185,13 @@ function UserDistributionReport() {
                                 {userData.map((item, index) => (
                                     <tr key={index}>
                                         <td className="border px-4 py-2 text-black text-center border-black">
-                                            {item.area}
+                                            {item.address_city}
                                         </td>
                                         <td className="border px-4 py-2 text-black text-center border-black">
                                             {item.userCount}
                                         </td>
                                         <td className="border px-4 py-2 text-black text-center border-black">
-                                            {item.userCount > 100 ? 'Increasing' : 'Stable'}
+                                            {item.userCount > 50 ? 'Increasing' : 'Stable'}
                                         </td>
                                     </tr>
                                 ))}
