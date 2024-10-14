@@ -3,7 +3,7 @@ import { AppBar, Toolbar, Typography, Box } from '@mui/material';
 
 const Topbar = () => {
     return (
-        <AppBar position="fixed">
+        <AppBar position="fixed" sx={{ backgroundColor: '#BAFFD9' }}>
             <Toolbar sx={{ justifyContent: 'space-between'}}>
                 {/* Logo on the Left */}
                 <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: '16px' }}>

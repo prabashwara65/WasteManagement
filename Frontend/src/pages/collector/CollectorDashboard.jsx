@@ -5,10 +5,12 @@ import HorizontalBar from '../collector/components/HorizontalBar';
 import Topbar from '../collector/components/Topbar';
 import Scanner from './CollectorScanner'; // Assuming you have this component
 import CollectorProfile from './CollectorProfile'; // Assuming you have this component
+import { useSelector, useDispatch } from 'react-redux';
 
 const CollectorDashboard = () => {
     const [selectedItem, setSelectedItem] = useState('Profile');
     const [userName, setUserName] = useState('John Doe'); // Replace with actual user name
+    const user = useSelector((state) => state.user);
 
     // Define the menu items for the drawer
     const menuItems = [
