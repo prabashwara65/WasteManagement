@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link , useNavigate} from 'react-router-dom';
 //import NavigationButton from './NaviagtionButton';
 
-function ViewAdmin() {
+function ViewCollectors() {
     const [admin , setAdmin] = useState([])
     const navigate = useNavigate()
 
@@ -79,4 +79,4 @@ function ViewAdmin() {
   );
 }
 
-export default ViewAdmin
+export default ViewCollectors
