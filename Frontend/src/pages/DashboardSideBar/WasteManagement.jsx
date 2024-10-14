@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Box,
     Card,
@@ -17,77 +17,74 @@ import {
     Fade,
     Backdrop,
 } from '@mui/material';
+import axios from 'axios';
 
 const WasteManagement = () => {
-    // Sample data for the table
-    const tableData = [
-        {
-            id: 1,
-            wasteType: 'Plastic',
-            collectedBy: 'Company A',
-            collectedFrom: 'User X',
-            address: '123 Street, City',
-            details: {
-                quantity: 50,
-                type: 'Plastic',
-                date: '2024-10-12',
-            },
-        },
-        {
-            id: 2,
-            wasteType: 'Food',
-            collectedBy: 'Company B',
-            collectedFrom: 'User Y',
-            address: '456 Avenue, City',
-            details: {
-                quantity: 30,
-                type: 'Food',
-                date: '2024-10-13',
-            },
-        },
-        {
-            id: 2,
-            wasteType: 'Food',
-            collectedBy: 'Company B',
-            collectedFrom: 'User Y',
-            address: '456 Avenue, City',
-            details: {
-                quantity: 30,
-                type: 'Food',
-                date: '2024-10-13',
-            },
-        },
-        {
-            id: 2,
-            wasteType: 'Food',
-            collectedBy: 'Company B',
-            collectedFrom: 'User Y',
-            address: '456 Avenue, City',
-            details: {
-                quantity: 30,
-                type: 'Food',
-                date: '2024-10-13',
-            },
-        },
-        {
-            id: 2,
-            wasteType: 'Food',
-            collectedBy: 'Company B',
-            collectedFrom: 'User Y',
-            address: '456 Avenue, City',
-            details: {
-                quantity: 30,
-                type: 'Food',
-                date: '2024-10-13',
-            },
-        },
-        // More sample data can be added
-    ];
-
     const [openModal, setOpenModal] = useState(false);
     const [selectedRecord, setSelectedRecord] = useState(null);
+    const [wasteData, setWasteData] = useState([]);
+    const [foodCount, setFoodCount] = useState(0);
+    const [plasticCount, setPlasticCount] = useState(0);
+    const [paperCount, setPaperCount] = useState(0);
+    const [eWasteCount, setEWasteCount] = useState(0);
+
+    useEffect(() => {
+        fetchWasteData();
+        fetchFoodCount();
+        fetchPlasticCount();
+        fetchPaperCount();
+        fetchEWasteCount();
+    }, []);
+
+    const fetchWasteData = async () => {
+        try {
+            const response = await axios.get('http://localhost:3000/wasteCollections/getAllWasteCollectionCustome');
+            setWasteData(response.data.data);
+        } catch (error) {
+            console.error("Error fetching wasteData", error);
+        }
+    };    
+
+    const fetchFoodCount = async () => {
+        try {
+            const response = await axios.get('http://localhost:3000/wasteCollections/countAllFood');
+            setFoodCount(response.data.data[0]['count(*)']);
+        } catch (error) {
+            console.error("Error fetching food count", error);
+        }
+    };
+
+    const fetchPlasticCount = async () => {
+        try {
+            const response = await axios.get('http://localhost:3000/wasteCollections/countAllPlastics');
+            setPlasticCount(response.data.data[0]['count(*)']);
+        } catch (error) {
+            console.error("Error fetching plastic count", error);
+        }
+    };
+
+    const fetchPaperCount = async () => {
+        try {
+            const response = await axios.get('http://localhost:3000/wasteCollections/countAllPaper');
+            setPaperCount(response.data.data[0]['count(*)']);
+        } catch (error) {
+            console.error("Error fetching paper count", error);
+        }
+    };
+
+    const fetchEWasteCount = async () => {
+        try {
+            const response = await axios.get('http://localhost:3000/wasteCollections/countAllEWaste');
+            setEWasteCount(response.data.data[0]['count(*)']);
+        } catch (error) {
+            console.error("Error fetching e-waste count", error);
+        }
+    };
+
+    
 
     const handleOpenModal = (record) => {
+        console.log("Selected Record:", record);
         setSelectedRecord(record);
         setOpenModal(true);
     };
@@ -107,7 +104,7 @@ const WasteManagement = () => {
                     <Card sx={{ backgroundColor: '#F37979', color: '#fff', borderRadius: '12px' }}>
                         <CardContent>
                             <Typography variant="h6">Plastic</Typography>
-                            <Typography variant="h4">150</Typography>
+                            <Typography variant="h4">{plasticCount}</Typography>
                         </CardContent>
                     </Card>
                 </Grid>
@@ -115,7 +112,7 @@ const WasteManagement = () => {
                     <Card sx={{ backgroundColor: '#99F379', color: '#fff', borderRadius: '12px' }}>
                         <CardContent>
                             <Typography variant="h6">Food</Typography>
-                            <Typography variant="h4">120</Typography>
+                            <Typography variant="h4">{foodCount}</Typography>
                         </CardContent>
                     </Card>
                 </Grid>
@@ -123,7 +120,7 @@ const WasteManagement = () => {
                     <Card sx={{ backgroundColor: '#F3B679', color: '#fff', borderRadius: '12px' }}>
                         <CardContent>
                             <Typography variant="h6">Paper</Typography>
-                            <Typography variant="h4">75</Typography>
+                            <Typography variant="h4">{paperCount}</Typography>
                         </CardContent>
                     </Card>
                 </Grid>
@@ -131,7 +128,7 @@ const WasteManagement = () => {
                     <Card sx={{ backgroundColor: '#79B8F3', color: '#fff', borderRadius: '12px' }}>
                         <CardContent>
                             <Typography variant="h6">E-Waste</Typography>
-                            <Typography variant="h4">45</Typography>
+                            <Typography variant="h4">{eWasteCount}</Typography>
                         </CardContent>
                     </Card>
                 </Grid>
@@ -145,19 +142,21 @@ const WasteManagement = () => {
                             <TableHead>
                                 <TableRow>
                                     <TableCell>Waste Type</TableCell>
+                                    <TableCell>Weight</TableCell>
                                     <TableCell>Collected By</TableCell>
                                     <TableCell>Collected From</TableCell>
-                                    <TableCell>Address</TableCell>
+                                    <TableCell>Date</TableCell>
                                     <TableCell align="right">Action</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {tableData.map((row) => (
+                                {wasteData.map((row) => (
                                     <TableRow key={row.id}>
-                                        <TableCell>{row.wasteType}</TableCell>
-                                        <TableCell>{row.collectedBy}</TableCell>
-                                        <TableCell>{row.collectedFrom}</TableCell>
-                                        <TableCell>{row.address}</TableCell>
+                                        <TableCell>{row.type}</TableCell>
+                                        <TableCell>{row.weight}</TableCell>
+                                        <TableCell>{row.collected_by}</TableCell>
+                                        <TableCell>{row.collected_from}</TableCell>
+                                        <TableCell>{row.date}</TableCell>
                                         <TableCell align="right">
                                             <Button
                                                 variant="contained"
@@ -180,8 +179,6 @@ const WasteManagement = () => {
                 open={openModal}
                 onClose={handleCloseModal}
                 closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{ timeout: 500 }}
             >
                 <Fade in={openModal}>
                     <Box
@@ -190,38 +187,33 @@ const WasteManagement = () => {
                             top: '50%',
                             left: '50%',
                             transform: 'translate(-50%, -50%)',
-                            width: 500,
+                            width: 400,
                             bgcolor: 'background.paper',
                             borderRadius: '8px',
                             boxShadow: 24,
                             padding: '20px',
                         }}
                     >
-                        {selectedRecord && (
+                        <Typography variant="h5">Waste Collection Details</Typography>
+                        {selectedRecord ? (
                             <>
-                                <Typography variant="h5" gutterBottom>
-                                    {selectedRecord.wasteType} Details
-                                </Typography>
-                                <Typography variant="body1">
-                                    Collected By: {selectedRecord.collectedBy}
-                                </Typography>
-                                <Typography variant="body1">
-                                    Collected From: {selectedRecord.collectedFrom}
-                                </Typography>
-                                <Typography variant="body1">
-                                    Address: {selectedRecord.address}
-                                </Typography>
-                                <Typography variant="body1">
-                                    Quantity: {selectedRecord.details.quantity}
-                                </Typography>
-                                <Typography variant="body1">
-                                    Date: {selectedRecord.details.date}
-                                </Typography>
+                                <Typography variant="body1">ID: {selectedRecord.id}</Typography>
+                                <Typography variant="body1">Waste Type: {selectedRecord.type}</Typography>
+                                <Typography variant="body1">Weight: {selectedRecord.weight} kg</Typography>
+                                <Typography variant="body1">Collected By: {selectedRecord.collected_by}</Typography>
+                                <Typography variant="body1">Time: {selectedRecord.time}</Typography>
+                                <Typography variant="body1">Date: {selectedRecord.date}</Typography>
+                                <Typography variant="body1">City: {selectedRecord.city}</Typography>
+                                <Typography variant="body1">Collected From: {selectedRecord.collected_from}</Typography>
+                                <Typography variant="body1">Bin ID: {selectedRecord.binId}</Typography>
                             </>
+                        ) : (
+                            <Typography variant="body1">No Record Selected</Typography>
                         )}
                     </Box>
                 </Fade>
             </Modal>
+
         </Box>
     );
 };
