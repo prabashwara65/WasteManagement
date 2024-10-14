@@ -7,6 +7,9 @@ import Admin from './pages/Admin/ViewAdmin'
 import CreateAdmin from './pages/Admin/createAdmin'
 import UpdateAdmin from './pages/Admin/UpdateAdmin'
 import CollectorDashboard from './pages/collector/CollectorDashboard'
+import ViewCollectors from './pages/CollectorCrud/ViewCollectors'
+import CreateCollectors from './pages/CollectorCrud/CreateCollector'
+import UpdateCollectors from './pages/CollectorCrud/UpdateCollectors'
 
 function App() {
 
@@ -24,6 +27,10 @@ function App() {
           <Route path='/viewAdmin/updateAdmin/:id' element={<UpdateAdmin/>} />
 
           <Route path='/collectorDashboard' element={<CollectorDashboard/>} />
+
+          <Route path='/ViewCollectors' element={<ViewCollectors/>} />
+          <Route path='/CreateCollectors' element={<CreateCollectors/>} />
+          <Route path='/UpdateCollector/:id' element={<UpdateCollectors/>} />
 
         </Routes>
       </BrowserRouter>
