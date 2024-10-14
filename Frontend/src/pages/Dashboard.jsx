@@ -39,12 +39,12 @@ function Dashboard() {
   // Sidebar link active class management
   const linkClass = (page) => 
     `flex items-center py-2 px-3 mt-3 cursor-pointer transition-colors duration-200 
-     ${activePage === page ? 'bg-blue-800 text-white' : 'hover:bg-blue-700 text-gray-300'}`;
+     ${activePage === page ? 'bg-green-800 text-white' : 'hover:bg-green-700 text-gray-300'}`;
 
   return (
     <div className="flex h-screen bg-gray-100 dark:bg-gray-900">
       {/* Sidebar */}
-      <div className="w-64 bg-blue-900 text-white">
+      <div className="w-64 bg-green-900 text-white">
         <div className="p-4 text-center font-bold text-xl">Dashboard</div>
         <nav className="mt-8">
           <ul className="space-y-2">

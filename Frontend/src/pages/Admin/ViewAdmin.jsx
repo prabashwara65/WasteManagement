@@ -83,7 +83,7 @@ function ViewAdmin() {
   };
 
   return (
-    <div className="flex h-screen bg-blue-300 justify-center items-center">
+    <div className="flex h-screen bg-green-200 justify-center items-center">
       <div className=" bg-white rounded-lg p-3" style={{ width: '90%' }}>
         {/* Add New Admin Button */}
         <button

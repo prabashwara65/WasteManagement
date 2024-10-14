@@ -44,7 +44,7 @@ function ViewAdmin() {
     };
 
     return (
-        <div className="flex h-screen bg-blue-300 justify-center items-center">
+        <div className="flex h-screen bg-green-200 justify-center items-center">
             <div className="bg-white rounded-lg p-3" style={{ width: '90%' }}>
                 <div className="mt-2 max-h-96 overflow-y-auto">
                     <table className="mt-10 w-full border-collapse">

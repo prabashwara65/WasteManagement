@@ -21,7 +21,7 @@ function Reports() {
   };
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-blue-200">
+    <div className="flex flex-col items-center min-h-screen bg-green-200">
       <h1 className="text-3xl font-bold mt-8 mb-8">Reports Dashboard</h1>
 
       {/* Creative Buttons */}
