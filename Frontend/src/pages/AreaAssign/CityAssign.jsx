@@ -13,11 +13,8 @@ const AreaCard = ({ areaName, position }) => {
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution="&copy; OpenStreetMap contributors"
+          // attribution="&copy; OpenStreetMap contributors"
         />
-        {/* <Marker position={position}>
-          <Popup>{areaName}</Popup>
-        </Marker> */}
       </MapContainer>
     </div>
   );
@@ -32,7 +29,7 @@ const AreaAssign = () => {
   ];
 
   return (
-    <div className="bg-red-400 p-10">
+    <div className="bg-[#FFFBF7] p-10">
       {/* Main container for flex cards */}
       <div className="flex justify-between">
         {areas.map((area, index) => (
@@ -41,7 +38,7 @@ const AreaAssign = () => {
       </div>
 
       {/* Main container for table */}
-      <div className="bg-white shadow-lg p-4 mt-10">
+      <div className="bg-white shadow-lg p-4 mt-7">
         <h2 className="text-xl font-bold mb-4">Area Data Table</h2>
         <table className="table-auto w-full">
           <thead>
