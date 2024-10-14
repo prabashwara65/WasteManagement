@@ -23,6 +23,7 @@ const Login = () => {
           if(res.data.role === "admin"){
             console.log(res.data.role === 'admin')
             navigate('/Dashboard')
+            return;
           }
             navigate('/')
         }

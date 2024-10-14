@@ -70,7 +70,7 @@ function UserDistributionReport() {
     return (
         <div className="container p-4 h-screen mb-5">
             <div className="flex justify-between items-center mb-4">
-                <h1 className="text-xl font-bold">User Distribution by Area</h1>
+                <h1 className="text-xl font-bold">User Distribution & Area Metrics Report</h1>
                 <div className="flex space-x-4">
                     <button
                         onClick={handleDownloadPDF}
@@ -91,17 +91,17 @@ function UserDistributionReport() {
 
             <div ref={reportRef} className="bg-white p-10 border rounded-lg">
                 <header className="mb-5 border-b pb-3">
-                    <h2 className="text-xl font-semibold text-black">User Distribution System</h2>
+                    <h2 className="text-xl font-semibold text-black">Clean SCAPE: Garbage Collection System</h2>
                     <p className="text-sm text-gray-800">
                         Generated on: {new Date().toLocaleDateString()}
                     </p>
                     <p className="text-sm text-gray-800">
-                        Contact Us: UserDistributionSystem@gmail.com
+                        Contact Us: CleanSCAPE@gmail.com
                     </p>
                 </header>
 
                 <main className="mb-5">
-                    <h1 className="text-xl font-bold p-2">User Distribution Report</h1>
+                    <h1 className="text-xl font-bold p-2">User Distribution & Area Metrics Report</h1>
                     <h4 className="text-lg font-bold text-black">Purpose</h4>
                     <p className="text-black text-justify">
                         The purpose of this report is to provide insights into the distribution of users across different areas. By analyzing the user distribution, we can identify areas with higher user concentrations and trends over time to make informed decisions.
@@ -157,7 +157,7 @@ function UserDistributionReport() {
                 </main>
 
                 <footer className="border-t pt-3">
-                    <p className="text-sm text-gray-500">© 2024 User Distribution System</p>
+                    <p className="text-sm text-gray-500">© 2024 Clean SCAPE Report System</p>
                 </footer>
             </div>
         </div>

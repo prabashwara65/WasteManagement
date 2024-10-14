@@ -81,7 +81,7 @@ function WasteGenerationReport() {
     return (
         <div className="container p-4 h-screen mb-10">
             <div className="flex justify-between items-center mb-4">
-                <h1 className="text-xl font-bold">Waste Generation Monitoring Report</h1>
+                <h1 className="text-xl font-bold">Zone-Based Garbage Collection Report</h1>
                 <div className="flex space-x-4">
                     <button
                         onClick={handleDownloadPDF}
@@ -102,18 +102,18 @@ function WasteGenerationReport() {
 
             <div ref={reportRef} className="bg-white p-10 border rounded-lg">
                 <header className="mb-5 border-b pb-3">
-                    <h2 className="text-xl font-semibold text-black">Waste Generation Monitoring System</h2>
+                    <h2 className="text-xl font-semibold text-black">Clean SCAPE: Garbage Collection System</h2>
                     <p className="text-sm text-gray-800">
                         Generated on: {new Date().toLocaleDateString()}
                     </p>
                     <p className="text-sm text-gray-800">
-                        Contact Us: WasteManagementSystem@gmail.com
+                        Contact Us: CleanSCAPE@gmail.com
                     </p>
                 </header>
 
                 <main className="mb-5">
                     <h1 className="text-xl font-bold p-2">
-                        Waste Generation Report
+                    Zone-Based Garbage Collection Report
                     </h1>
                     <h4 className="text-lg font-bold text-black">Purpose</h4>
                     <p className="text-black text-justify">
@@ -175,7 +175,7 @@ function WasteGenerationReport() {
                 </main>
 
                 <footer className="border-t pt-3">
-                    <p className="text-sm text-gray-500">© 2024 Waste Management System</p>
+                    <p className="text-sm text-gray-500">© 2024 Clean SCAPE Report System</p>
                 </footer>
             </div>
         </div>

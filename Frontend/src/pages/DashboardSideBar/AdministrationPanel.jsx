@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaUserShield, FaUser } from 'react-icons/fa';
 import AdminCrudTable from '../Admin/ViewAdmin';
+import UserCrudTable from '../Admin/UsersAdminView/ViewUser';
 
 const AdministrationPanel = () => {
   const [activeSection, setActiveSection] = useState('admin'); // Default to 'admin'
@@ -10,7 +11,7 @@ const AdministrationPanel = () => {
       case 'admin':
         return <AdminCrudTable />;
       case 'user':
-        return <p className="text-gray-600">User table will be displayed here.</p>;
+        return <UserCrudTable />
       default:
         return null;
     }
@@ -49,7 +50,7 @@ const AdministrationPanel = () => {
       </div>
 
       {/* Displaying the content based on selected option */}
-      <div className="w-75 bg-white  rounded-lg shadow-lg mb-5 ">
+      <div className=" bg-white  rounded-lg shadow-lg mb-5 " style={{ width: '90%' }}>
         {renderContent()}
       </div>
     </div>
