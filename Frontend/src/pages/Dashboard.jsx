@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { MdDashboard } from "react-icons/md";
 import { FaUsers, FaChartArea } from "react-icons/fa";
-import { IoPersonAddSharp, IoSettingsSharp , IoLogOutOutline} from "react-icons/io5";
-import Overwiew from "./DashboardSideBar/DashboardOverview";
-import Administration from "./DashboardSideBar/AdministrationPanel"
+import { IoPersonAddSharp, IoSettingsSharp, IoLogOutOutline } from "react-icons/io5";
+import Overview from "./DashboardSideBar/DashboardOverview";
+import Administration from "./DashboardSideBar/AdministrationPanel";
+import Reports from "./DashboardSideBar/Reports";
+import Settings from './DashboardSideBar/Settings';
 
 function Dashboard() {
   const [activePage, setActivePage] = useState('overview');
@@ -12,19 +14,19 @@ function Dashboard() {
   const renderContent = () => {
     switch (activePage) {
       case 'overview':
-        return <Overwiew/>;
+        return <Overview />;
       case 'accountAdmin':
-        return <Administration/>;
+        return <Administration />;
       case 'analytics':
-        return <div>Analytics Content</div>;
+        return <Reports />;
       case 'settings':
-        return <div>Settings Content</div>;
+        return <Settings/>;
       case 'profile':
         return <div>Profile Content</div>;
       case 'logout':
-          // return <div>logOut Content</div>;
+        return <div>Log Out Content</div>; // Replace with log out functionality if needed
       default:
-        return <Overwiew/>;
+        return <Overview />;
     }
   };
 
@@ -90,8 +92,10 @@ function Dashboard() {
         </header>
 
         {/* Dynamic Content */}
-        <main className="flex-1 p-6 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
-          {renderContent()}
+        <main className="flex-1  bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white overflow-y-auto">
+          <div style={{ maxHeight: 'calc(100vh - 64px)', overflowY: 'auto' }}>
+            {renderContent()}
+          </div>
         </main>
       </div>
     </div>
