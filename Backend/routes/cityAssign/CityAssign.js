@@ -1,13 +1,13 @@
 import express from 'express';
-import { connectToDatabase } from '../../lib/db.js';
+import { connectToDatabase } from '../../lib/db.js'; 
 
 const router = express.Router();
 
-// View all collectors' details
-router.get("/collector", async (req, res) => {
+// View CityAssign details
+router.get("/ViewCityAssigns", async (req, res) => {
   try {
     const db = await connectToDatabase(); 
-    const [rows] = await db.query("SELECT * FROM collectors"); 
+    const [rows] = await db.query("SELECT * FROM city"); 
     return res.status(200).json(rows); 
   } catch (err) {
     console.error("Error executing query", err);
@@ -15,80 +15,76 @@ router.get("/collector", async (req, res) => {
   }
 });
 
-// Create a new collector
+// Pass data to the database
 router.post('/create', async (req, res) => {
     const db = await connectToDatabase(); // Establish the database connection
-    const sql = "INSERT INTO collectors (`name`, `email`, `city`, `address`, `phone`, `salary`) VALUES (?, ?, ?, ?, ?, ?)";
+    const sql = "INSERT INTO city (`Colombo`, `Kandy`, `Galle` , `Jaffna`) VALUES (?, ?, ?,?)";
     
     const values = [
-        req.body.name,
-        req.body.email,
-        req.body.city,
-        req.body.address,
-        req.body.phone,
-        req.body.salary
+        req.body.colombo,
+        req.body.kandy,
+        req.body.galle,
+        req.body.jaffna,
     ];
     
     try {
         const [result] = await db.query(sql, values); // Execute the query with the values
-        return res.status(201).json({ message: "Collector created successfully", data: result }); // Respond with a success message
+        return res.status(201).json({ message: "City was Assigned successfully", data: result }); // Respond with a success message
     } catch (err) {
         console.error("Error inserting data", err);
         return res.status(500).json("Error inserting data"); // Handle error
     }
 });
 
-// Update collector data
+// Update data in database
 router.put('/update/:id', async (req, res) => {
     const db = await connectToDatabase(); 
-    const sql = "UPDATE collectors SET `name` = ?, `email` = ?, `city` = ?, `address` = ?, `phone` = ?, `salary` = ? WHERE id = ?";
+    const sql = "UPDATE city SET `colombo` = ?, `kandy` = ?, `galle` = ? , `jaffna` = ? WHERE id = ?";
     const values = [
-        req.body.name,
-        req.body.email,
-        req.body.city,
-        req.body.address,
-        req.body.phone,
-        req.body.salary,
-        req.params.id // Add the ID to the values array
+        req.body.Colombo,
+        req.body.Kandy,
+        req.body.Galle,
+        req.body.Jaffna,
+        req.params.id
     ];
 
     try {
         const [result] = await db.query(sql, values); // Execute the update query with the values
-        return res.status(200).json({ message: "Collector updated successfully", data: result }); // Respond with a success message
+        return res.status(200).json({ message: "City was updated successfully", data: result }); // Respond with a success message
     } catch (err) {
         console.error("Error updating data", err);
         return res.status(500).json("Error updating data"); // Handle error
     }
 });
 
-// View specific collector details
-router.get("/collector/:id", async (req, res) => {
+// View specific admin details
+router.get("/ViewCityAssigns/:id", async (req, res) => {
     try {
       const db = await connectToDatabase();
-      const [rows] = await db.query("SELECT * FROM collectors WHERE id = ?", [req.params.id]);
+      const [rows] = await db.query("SELECT * FROM city WHERE id = ?", [req.params.id]);
       if (rows.length > 0) {
-        return res.status(200).json(rows[0]); // Return only the first matching collector
+        return res.status(200).json(rows[0]); // Return only the first matching admin
       } else {
-        return res.status(404).json({ message: "Collector not found" });
+        return res.status(404).json({ message: "City Assigned  not found" });
       }
     } catch (err) {
       console.error("Error executing query", err);
       return res.status(500).json("Error executing query");
     }
-});
+  });
 
-// Delete collector data
+// Delete data from database
 router.delete('/delete/:id', async (req, res) => {
     const db = await connectToDatabase(); 
-    const sql = "DELETE FROM collectors WHERE id = ?"; // Corrected to 'collectors' table
+    const sql = "DELETE FROM city WHERE id = ?";
     const id = req.params.id; 
 
     try {
         const [result] = await db.query(sql, [id]); 
         if (result.affectedRows > 0) {
-            return res.status(200).json({ message: "Collector deleted successfully" }); 
+            return res.status(200).json({ message: "ACity Assigned successfully" }); 
         } else {
-            return res.status(404).json({ message: "Collector not found" }); 
+            return res.status(404).json({ message: "City Assigned not found" }); 
         }
     } catch (err) {
         console.error("Error deleting data", err);

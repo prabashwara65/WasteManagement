@@ -4,6 +4,7 @@ import authRouter from './routes/authRoutes.js'
 import adminRoute from './routes/admin/adminRoutes.js'
 import userRoute from './routes/admin/userRoutes.js'
 import collectorRoutes from './routes/collector/collectorRoutes.js'
+import CityAssignRoutes from './routes/cityAssign/CityAssign.js'
 import reportsRoute from './routes/admin/reportsRoute.js'
 import dotenv from 'dotenv';
 dotenv.config();
@@ -17,6 +18,7 @@ app.use('/auth' , authRouter )
 app.use('/admins', adminRoute)
 app.use('/users',userRoute)
 app.use('/collectors', collectorRoutes)
+app.use('/cityassign', CityAssignRoutes)
 app.use('/reports', reportsRoute)  // all reports need routes included
 
 app.listen(process.env.PORT, () => {
