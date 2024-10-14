@@ -20,6 +20,8 @@ wasteCollectionRouter.get('/getAllWasteCollectionCustome', async (req, res) => {
     }
 });
 
+
+
 // get all waste collection
 wasteCollectionRouter.get('/getAllWasteCollection', async (req, res) => {
     const db = await connectToDatabase(); // Establish the database connection
@@ -36,6 +38,8 @@ wasteCollectionRouter.get('/getAllWasteCollection', async (req, res) => {
     }
 });
 
+
+
 //count all waste
 wasteCollectionRouter.get('/countAll', async (req, res) => {
     const db = await connectToDatabase(); // Establish the database connection
@@ -49,6 +53,8 @@ wasteCollectionRouter.get('/countAll', async (req, res) => {
         return res.status(500).json("Error fetching wasteData"); // Handle error
     }
 });
+
+
 
 //count plastic
 wasteCollectionRouter.get('/countAllPlastics', async (req, res) => {
@@ -64,6 +70,8 @@ wasteCollectionRouter.get('/countAllPlastics', async (req, res) => {
     }
 });
 
+
+
 //count food
 wasteCollectionRouter.get('/countAllFood', async (req, res) => {
     const db = await connectToDatabase(); // Establish the database connection
@@ -78,10 +86,12 @@ wasteCollectionRouter.get('/countAllFood', async (req, res) => {
     }
 });
 
+
+
 //count paper
-wasteCollectionRouter.get('/countAllPaper', async (req, res) => {
+wasteCollectionRouter.get('/countAllPolythene', async (req, res) => {
     const db = await connectToDatabase(); // Establish the database connection
-    const sql = "select count(*) from wastecollection where type='paper'"; // SQL query to get all bins
+    const sql = "select count(*) from wastecollection where type='polythene'"; // SQL query to get all bins
 
     try {
         const [rows] = await db.query(sql); // Execute the query to fetch all bins
@@ -91,6 +101,8 @@ wasteCollectionRouter.get('/countAllPaper', async (req, res) => {
         return res.status(500).json("Error fetching wasteData"); // Handle error
     }
 });
+
+
 
 //count ewaste
 wasteCollectionRouter.get('/countAllEWaste', async (req, res) => {
@@ -106,8 +118,10 @@ wasteCollectionRouter.get('/countAllEWaste', async (req, res) => {
     }
 });
 
+
+
 //count plastic for one user
-wasteCollectionRouter.get('/countAllPlastics/:id', async (req, res) => {
+wasteCollectionRouter.get('/countAllPlasticsOneUser/:id', async (req, res) => {
     const db = await connectToDatabase(); // Establish the database connection
     const sql = "select count(*) from wastecollection w, users u where w.collected_from = u.id and w.type='plastic' and u.id = ?"; // SQL query to get all bins
     const id = req.params.id; // Get the bin ID from request parameters
@@ -121,8 +135,10 @@ wasteCollectionRouter.get('/countAllPlastics/:id', async (req, res) => {
     }
 });
 
+
+
 //count food for one user
-wasteCollectionRouter.get('/countAllFood/:id', async (req, res) => {
+wasteCollectionRouter.get('/countAllFoodOneUser/:id', async (req, res) => {
     const db = await connectToDatabase(); // Establish the database connection
     const sql = "select count(*) from wastecollection w, users u where w.collected_from = u.id and w.type='food' and u.id = ?"; // SQL query to get all bins
     const id = req.params.id; // Get the bin ID from request parameters
@@ -136,10 +152,12 @@ wasteCollectionRouter.get('/countAllFood/:id', async (req, res) => {
     }
 });
 
+
+
 //count paper for one user
-wasteCollectionRouter.get('/countAllPaper/:id', async (req, res) => {
+wasteCollectionRouter.get('/countAllPolytheneOneUser/:id', async (req, res) => {
     const db = await connectToDatabase(); // Establish the database connection
-    const sql = "select count(*) from wastecollection w, users u where w.collected_from = u.id and w.type='paper' and u.id = ?"; // SQL query to get all bins
+    const sql = "select count(*) from wastecollection w, users u where w.collected_from = u.id and w.type='polythene' and u.id = ?"; // SQL query to get all bins
     const id = req.params.id; // Get the bin ID from request parameters
 
     try {
@@ -151,8 +169,10 @@ wasteCollectionRouter.get('/countAllPaper/:id', async (req, res) => {
     }
 });
 
+
+
 //count ewaste for one user
-wasteCollectionRouter.get('/countAllEWaste/:id', async (req, res) => {
+wasteCollectionRouter.get('/countAllEWasteOneUser/:id', async (req, res) => {
     const db = await connectToDatabase(); // Establish the database connection
     const sql = "select count(*) from wastecollection w, users u where w.collected_from = u.id and w.type='E-Waste' and u.id = ?"; // SQL query to get all bins
     const id = req.params.id; // Get the bin ID from request parameters
@@ -167,8 +187,10 @@ wasteCollectionRouter.get('/countAllEWaste/:id', async (req, res) => {
 });
 
 
+
+
 //count all waste for one collector
-wasteCollectionRouter.get('/countAll/:id', async (req, res) => {
+wasteCollectionRouter.get('/countAllOneCollector/:id', async (req, res) => {
     const db = await connectToDatabase(); // Establish the database connection
     const sql = "select count(*) from wastecollection w, collectors c where w.collected_by = c.id and c.id = ?"; // SQL query to get all bins
     const id = req.params.id; // Get the bin ID from request parameters
@@ -182,8 +204,10 @@ wasteCollectionRouter.get('/countAll/:id', async (req, res) => {
     }
 });
 
+
+
 //count plastic for one collector
-wasteCollectionRouter.get('/countAllPlastics/:id', async (req, res) => {
+wasteCollectionRouter.get('/countAllPlasticsOneCollector/:id', async (req, res) => {
     const db = await connectToDatabase(); // Establish the database connection
     const sql = "select count(*) from wastecollection w, collectors c where w.collected_by = c.id and w.type='plastic' and c.id = ?"; // SQL query to get all bins
     const id = req.params.id; // Get the bin ID from request parameters
@@ -197,8 +221,10 @@ wasteCollectionRouter.get('/countAllPlastics/:id', async (req, res) => {
     }
 });
 
+
+
 //count food for one collector
-wasteCollectionRouter.get('/countAllFood/:id', async (req, res) => {
+wasteCollectionRouter.get('/countAllFoodOneCollector/:id', async (req, res) => {
     const db = await connectToDatabase(); // Establish the database connection
     const sql = "select count(*) from wastecollection w, collectors c where w.collected_by = c.id and w.type='food' and c.id = ?"; // SQL query to get all bins
     const id = req.params.id; // Get the bin ID from request parameters
@@ -212,10 +238,12 @@ wasteCollectionRouter.get('/countAllFood/:id', async (req, res) => {
     }
 });
 
+
+
 //count paper for one collector
-wasteCollectionRouter.get('/countAllPaper/:id', async (req, res) => {
+wasteCollectionRouter.get('/countAllPolytheneOneCollector/:id', async (req, res) => {
     const db = await connectToDatabase(); // Establish the database connection
-    const sql = "select count(*) from wastecollection w, collectors c where w.collected_by = c.id and w.type='paper' and c.id = ?"; // SQL query to get all bins
+    const sql = "select count(*) from wastecollection w, collectors c where w.collected_by = c.id and w.type='polythene' and c.id = ?"; // SQL query to get all bins
     const id = req.params.id; // Get the bin ID from request parameters
 
     try {
@@ -227,8 +255,10 @@ wasteCollectionRouter.get('/countAllPaper/:id', async (req, res) => {
     }
 });
 
+
+
 //count ewaste for one collector
-wasteCollectionRouter.get('/countAllEWaste/:id', async (req, res) => {
+wasteCollectionRouter.get('/countAllEWasteOneCollector/:id', async (req, res) => {
     const db = await connectToDatabase(); // Establish the database connection
     const sql = "select count(*) from wastecollection w, collectors c where w.collected_by = c.id and w.type='E-Waste' and c.id = ?"; // SQL query to get all bins
     const id = req.params.id; // Get the bin ID from request parameters
