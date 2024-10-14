@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Box } from '@mui/material';
-import DrawerMenu from '../components/DrawerMenu';
-import HorizontalBar from '../components/HorizontalBar';
-import Topbar from '../components/Topbar';
+import DrawerMenu from '../collector/components/DrawerMenu';
+import HorizontalBar from '../collector/components/HorizontalBar';
+import Topbar from '../collector/components/Topbar';
 import Scanner from './CollectorScanner'; // Assuming you have this component
 import CollectorProfile from './CollectorProfile'; // Assuming you have this component
 
@@ -41,7 +41,7 @@ const CollectorDashboard = () => {
                 onItemClick={handleMenuClick}
             />
 
-            <Box sx={{ flexGrow: 1 }}>
+            <Box sx={{ flexGrow: 1}}>
                 {/* Top Bar */}
                 <HorizontalBar title="Dashboard" userName={userName} />
 
