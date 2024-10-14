@@ -10,6 +10,9 @@ import CollectorDashboard from './pages/collector/CollectorDashboard'
 import ViewCollectors from './pages/CollectorCrud/ViewCollectors'
 import CreateCollectors from './pages/CollectorCrud/CreateCollector'
 import UpdateCollectors from './pages/CollectorCrud/UpdateCollectors'
+import ViewCityAssign from './pages/CityAssign/CityAssignCrud/View'
+import CreateCityAssign from './pages/CityAssign/CityAssignCrud/Create'
+import UpdateCityAssign from './pages/CityAssign/CityAssignCrud/Update'
 
 function App() {
 
@@ -31,6 +34,12 @@ function App() {
           <Route path='/ViewCollectors' element={<ViewCollectors/>} />
           <Route path='/CreateCollectors' element={<CreateCollectors/>} />
           <Route path='/UpdateCollector/:id' element={<UpdateCollectors/>} />
+
+          <Route path='/ViewCityAssign' element={<ViewCityAssign/>} />
+          <Route path='/CreateCityAssign' element={<CreateCityAssign/>} />
+          <Route path='/UpdateCityAssign/:id' element={<UpdateCityAssign/>} />
+
+
 
         </Routes>
       </BrowserRouter>
