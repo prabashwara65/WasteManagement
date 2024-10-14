@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { updateCityAssign } from '../../../ReduxTool/citySlice';
+import { useDispatch } from 'react-redux';
 import axios from 'axios';
 
 const UpdateCityAssign = () => {
+  const dispatch = useDispatch();
   const { id } = useParams(); // Get the ID from the URL parameters
   const [Colombo, setColombo] = useState('');
   const [Kandy, setKandy] = useState('');
@@ -20,6 +23,13 @@ const UpdateCityAssign = () => {
         setKandy(cityAssign.Kandy);
         setGalle(cityAssign.Galle);
         setJaffna(cityAssign.Jaffna);
+
+         // Save to localStorage
+        localStorage.setItem('colombo', Colombo);
+        localStorage.setItem('kandy', Kandy);
+        localStorage.setItem('galle', Galle);
+        localStorage.setItem('jaffna', Jaffna);
+
       } catch (error) {
         console.error('Error fetching city assignment:', error);
       }
@@ -39,6 +49,7 @@ const UpdateCityAssign = () => {
       })
       .then((res) => {
         console.log(res);
+        dispatch(updateCityAssign({ Colombo, Kandy, Galle, Jaffna }));
         navigate('/ViewCityAssign'); // Navigate back to the view after updating
       })
       .catch((err) => console.log(err));
@@ -47,7 +58,7 @@ const UpdateCityAssign = () => {
   return (
     <div className="flex h-screen bg-gray-100 justify-center items-center">
       <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-2xl mb-6 text-center font-bold text-blue-600">Update City Assign</h2>
+        <h2 className="text-2xl mb-6 text-center font-bold text-blue-600">Update City Assign </h2>
 
         <div className="mb-4">
           <label htmlFor="Colombo" className="block text-gray-700 mb-2">Colombo</label>

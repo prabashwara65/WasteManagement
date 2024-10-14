@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 
 const Home = () => {
   const user = useSelector((state) => state.user);
-  console.log(user)
+  const cityAssign = useSelector((state) => state.city);
+  console.log(cityAssign)
   const dispatch = useDispatch();
   return (
     <div className="min-h-screen flex flex-col">
