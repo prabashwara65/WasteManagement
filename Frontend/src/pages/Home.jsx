@@ -1,6 +1,10 @@
 import React from 'react'
+import { useSelector, useDispatch } from 'react-redux';
 
 const Home = () => {
+  const user = useSelector((state) => state.user);
+  console.log(user)
+  const dispatch = useDispatch();
   return (
     <div className="min-h-screen flex flex-col">
       {/* Navbar */}
@@ -12,6 +16,7 @@ const Home = () => {
             <li><a href="#" className="hover:text-blue-200">About</a></li>
             <li><a href="#" className="hover:text-blue-200">Services</a></li>
             <li><a href="#" className="hover:text-blue-200">Contact</a></li>
+            <li><a href="#" className="hover:text-blue-200"><h1>Name - {user.name}</h1></a></li>
           </ul>
         </div>
       </nav>
