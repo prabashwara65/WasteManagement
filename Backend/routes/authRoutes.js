@@ -77,4 +77,21 @@ router.post('/login', async (req, res) => {
     }
 });
 
+// Add this to your existing code
+router.get('/Allusers', async (req, res) => {
+    try {
+        const db = await connectToDatabase();
+        
+        // Fetch all users from the database
+        const [rows] = await db.query('SELECT * FROM users');
+        
+        // Return the users data
+        return res.status(200).json(rows);
+    } catch (err) {
+        // Return internal server error
+        console.error("Error executing query", err);
+        res.status(500).json({ error: err.message });
+    }
+});
+
 export default router;

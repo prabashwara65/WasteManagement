@@ -6,7 +6,7 @@ import Overview from "./DashboardSideBar/DashboardOverview";
 import Administration from "./DashboardSideBar/AdministrationPanel";
 import Reports from "./DashboardSideBar/Reports";
 import Settings from './DashboardSideBar/Settings';
-import AreaAssign from './AreaAssign/AreaAssign';
+import AreaAssign from './CityAssign/CityAssign';
 
 function Dashboard() {
   // Get the active page from localStorage or default to 'overview'
