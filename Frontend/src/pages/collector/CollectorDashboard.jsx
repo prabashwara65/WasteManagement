@@ -41,7 +41,7 @@ const CollectorDashboard = () => {
                 onItemClick={handleMenuClick}
             />
 
-            <Box sx={{ flexGrow: 1 }}>
+            <Box sx={{ flexGrow: 1}}>
                 {/* Top Bar */}
                 <HorizontalBar title="Dashboard" userName={userName} />
 
