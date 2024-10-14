@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard'
 import Admin from './pages/Admin/ViewAdmin'
 import CreateAdmin from './pages/Admin/createAdmin'
 import UpdateAdmin from './pages/Admin/UpdateAdmin'
+import CollectorDashboard from './pages/collector/CollectorDashboard'
 
 function App() {
 
@@ -21,6 +22,8 @@ function App() {
           <Route path='/viewAdmin' element={<Admin/>} />
           <Route path='/createAdmin' element={<CreateAdmin/>} />
           <Route path='/viewAdmin/updateAdmin/:id' element={<UpdateAdmin/>} />
+
+          <Route path='/collectorDashboard' element={<CollectorDashboard/>} />
 
         </Routes>
       </BrowserRouter>
