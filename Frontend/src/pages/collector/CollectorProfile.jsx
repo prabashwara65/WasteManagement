@@ -73,16 +73,16 @@ const CollectorProfile = () => {
                                     let backgroundColor;
                                     switch (index) {
                                         case 0:
-                                            backgroundColor = 'red';
+                                            backgroundColor = '#F37979';
                                             break;
                                         case 1:
-                                            backgroundColor = 'green';
+                                            backgroundColor = '#99F379';
                                             break;
                                         case 2:
-                                            backgroundColor = '#DAA520'; // Dark Yellow
+                                            backgroundColor = '#F3B679'; // Dark Yellow
                                             break;
                                         case 3:
-                                            backgroundColor = 'lightblue';
+                                            backgroundColor = '#79B8F3';
                                             break;
                                         default:
                                             backgroundColor = 'white';
