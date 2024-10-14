@@ -21,14 +21,14 @@ function ViewAdmin() {
 
   // Open the modal for creating a new admin
   const openCreateModal = () => {
-    setIsEditing(false); // We're not editing, we're creating a new admin
-    setFormData({ username: '', email: '', department: '' }); // Clear the form
+    setIsEditing(false); 
+    setFormData({ username: '', email: '', department: '' }); 
     setIsModalOpen(true);
   };
 
   // Open the modal and set the selected admin for editing
   const openEditModal = (adminData) => {
-    setIsEditing(true); // We're editing an existing admin
+    setIsEditing(true); 
     setFormData({
       id: adminData.id,
       username: adminData.username,
