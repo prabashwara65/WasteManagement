@@ -6,6 +6,7 @@ import Overview from "./DashboardSideBar/DashboardOverview";
 import Administration from "./DashboardSideBar/AdministrationPanel";
 import Reports from "./DashboardSideBar/Reports";
 import Settings from './DashboardSideBar/Settings';
+import AreaAssign from './AreaAssign/AreaAssign';
 
 function Dashboard() {
   // Get the active page from localStorage or default to 'overview'
@@ -25,6 +26,8 @@ function Dashboard() {
         return <Administration />;
       case 'analytics':
         return <Reports />;
+      case 'Area Assign':
+        return <AreaAssign/>;
       case 'settings':
         return <Settings />;
       case 'profile':
@@ -59,6 +62,10 @@ function Dashboard() {
             <li className={linkClass('analytics')} onClick={() => setActivePage('analytics')}>
               <FaChartArea className="mr-2" />
               <span>Analytics</span>
+            </li>
+            <li className={linkClass('Area Assign')} onClick={() => setActivePage('Area Assign')}>
+              <IoSettingsSharp className="mr-2" />
+              <span>Area Assign</span>
             </li>
             <li className={linkClass('settings')} onClick={() => setActivePage('settings')}>
               <IoSettingsSharp className="mr-2" />
