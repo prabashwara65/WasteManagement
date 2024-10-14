@@ -3,6 +3,7 @@ import cors from 'cors'
 import authRouter from './routes/authRoutes.js'
 import adminRoute from './routes/admin/adminRoutes.js'
 import userRoute from './routes/admin/userRoutes.js'
+import reportsRoute from './routes/admin/reportsRoute.js'
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -14,6 +15,7 @@ app.use(express.json())
 app.use('/auth' , authRouter )
 app.use('/admins', adminRoute)
 app.use('/users',userRoute)
+app.use('/reports', reportsRoute)  // all reports need routes included
 
 app.listen(process.env.PORT, () => {
     console.log("server is running")
