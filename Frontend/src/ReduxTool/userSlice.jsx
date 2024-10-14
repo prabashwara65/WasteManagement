@@ -11,7 +11,6 @@ export const userSlice = createSlice({
     nic: '',
     phone: '',
     loggedIn: false,
-    userId: null,
     role: ''
   },
   reducers: {
@@ -24,7 +23,6 @@ export const userSlice = createSlice({
       state.nic = action.payload.nic;
       state.phone = action.payload.phone;
       state.loggedIn = true;
-      state.userId = action.payload.userId;
       state.role = action.payload.role;
     },
     logout: (state) => {
@@ -36,7 +34,6 @@ export const userSlice = createSlice({
       state.nic = '';
       state.phone = '';
       state.loggedIn = false;
-      state.userId = null;
       state.role = '';
     }
   }
