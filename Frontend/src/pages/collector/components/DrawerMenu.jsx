@@ -9,7 +9,7 @@ const DrawerMenu = ({ selectedItem, menuItems, onItemClick }) => {
             sx={{
                 width: 240,
                 flexShrink: 0,
-                '& .MuiDrawer-paper': { width: 240, boxSizing: 'border-box', top: '64px' }, // Adjusted to be below AppBar
+                '& .MuiDrawer-paper': { width: 240, boxSizing: 'border-box', top: '64px', backgroundColor: '#259E73' }, // Adjusted to be below AppBar
             }}
         >
             <Box sx={{ padding: '20px', textAlign: 'center' }}>

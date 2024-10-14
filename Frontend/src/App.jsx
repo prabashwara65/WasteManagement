@@ -48,6 +48,8 @@ function App() {
             <Route path='/UpdateCityAssign/:id' element={<UpdateCityAssign/>} />
             <Route path='/userDashboard' element={<GeneralUserDashboard />} />
 
+            <Route path='/collectorDashboard' element={<CollectorDashboard/>} />
+
           </Routes>
         </BrowserRouter>
       </Provider>
