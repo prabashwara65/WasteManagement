@@ -1,42 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MdDashboard } from "react-icons/md";
 import { FaUsers, FaChartArea } from "react-icons/fa";
-import { IoPersonAddSharp, IoSettingsSharp , IoLogOutOutline} from "react-icons/io5";
-import Overwiew from "./DashboardSideBar/DashboardOverview";
-import Administration from "./DashboardSideBar/AdministrationPanel"
+import { IoPersonAddSharp, IoSettingsSharp, IoLogOutOutline } from "react-icons/io5";
+import Overview from "./DashboardSideBar/DashboardOverview";
+import Administration from "./DashboardSideBar/AdministrationPanel";
+import Reports from "./DashboardSideBar/Reports";
+import Settings from './DashboardSideBar/Settings';
 
 function Dashboard() {
-  const [activePage, setActivePage] = useState('overview');
+  // Get the active page from localStorage or default to 'overview'
+  const [activePage, setActivePage] = useState(localStorage.getItem('activePage') || 'overview');
 
-  // This function dynamically renders the content based on the activePage
+  // Save the activePage to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('activePage', activePage);
+  }, [activePage]);
+
+  // Function to dynamically render content based on activePage
   const renderContent = () => {
     switch (activePage) {
       case 'overview':
-        return <Overwiew/>;
+        return <Overview />;
       case 'accountAdmin':
-        return <Administration/>;
+        return <Administration />;
       case 'analytics':
-        return <div>Analytics Content</div>;
+        return <Reports />;
       case 'settings':
-        return <div>Settings Content</div>;
+        return <Settings />;
       case 'profile':
         return <div>Profile Content</div>;
       case 'logout':
-          return <div>logOut Content</div>;
+        return <div>Log Out Content</div>; 
       default:
-        return <Overwiew/>;
+        return <Overview />;
     }
   };
 
   // Sidebar link active class management
   const linkClass = (page) => 
     `flex items-center py-2 px-3 mt-3 cursor-pointer transition-colors duration-200 
-     ${activePage === page ? 'bg-blue-800 text-white' : 'hover:bg-blue-700 text-gray-300'}`;
+     ${activePage === page ? 'bg-green-800 text-white' : 'hover:bg-green-700 text-gray-300'}`;
 
   return (
     <div className="flex h-screen bg-gray-100 dark:bg-gray-900">
       {/* Sidebar */}
-      <div className="w-64 bg-blue-900 text-white">
+      <div className="w-64 bg-green-900 text-white">
         <div className="p-4 text-center font-bold text-xl">Dashboard</div>
         <nav className="mt-8">
           <ul className="space-y-2">
@@ -90,8 +98,10 @@ function Dashboard() {
         </header>
 
         {/* Dynamic Content */}
-        <main className="flex-1 p-6 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
-          {renderContent()}
+        <main className="flex-1 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white overflow-y-auto">
+          <div style={{ maxHeight: 'calc(100vh - 64px)', overflowY: 'auto' }}>
+            {renderContent()}
+          </div>
         </main>
       </div>
     </div>
