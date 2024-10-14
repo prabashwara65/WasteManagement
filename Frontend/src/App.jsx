@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard'
 import Admin from './pages/Admin/ViewAdmin'
 import CreateAdmin from './pages/Admin/createAdmin'
 import UpdateAdmin from './pages/Admin/UpdateAdmin'
+import GeneralUserDashboard from './pages/GeneralUsers/UserDashboard'
 
 function App() {
 
@@ -21,6 +22,8 @@ function App() {
           <Route path='/viewAdmin' element={<Admin/>} />
           <Route path='/createAdmin' element={<CreateAdmin/>} />
           <Route path='/viewAdmin/updateAdmin/:id' element={<UpdateAdmin/>} />
+
+          <Route path='/userDashboard' element={<GeneralUserDashboard />} />
 
         </Routes>
       </BrowserRouter>
