@@ -1,9 +1,13 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { setUser } from '../ReduxTool/userSlice';
+import { useDispatch } from 'react-redux';
 import axios from 'axios'
+
 
 const Login = () => {
 
+  const dispatch = useDispatch();
   const [values , setValues] = useState({
     email: '',
     password: '',
@@ -18,7 +22,19 @@ const Login = () => {
       e.preventDefault()
        try{
         const res = await axios.post('http://localhost:3000/auth/login' , values)
+        console.log(res.data);
+        
         if(res.status === 201){
+          const user = res.data; 
+          dispatch(setUser({
+            name: user.username,
+            email: user.email,
+            address_no: user.address_no,
+            address_street: user.address_street,
+            address_city: user.address_city,
+            nic: user.nic,
+            phone: user.phone,
+        }));
 
           if(res.data.role === "admin"){
             console.log(res.data.role === 'admin')

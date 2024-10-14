@@ -1,37 +1,46 @@
-import { configureStore, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
-    user: {
-      name: localStorage.getItem('name') || null,
-      email: localStorage.getItem('email') || null,
-      loggedIn: localStorage.getItem('loggedIn') === 'true' || false,
+export const userSlice = createSlice({
+  name: 'user',
+  initialState: {
+    name: '',
+    email: '',
+    address_no: '',
+    address_street: '',
+    address_city: '',
+    nic: '',
+    phone: '',
+    loggedIn: false,
+    userId: null,
+    role: ''
+  },
+  reducers: {
+    setUser: (state, action) => {
+      state.name = action.payload.name;
+      state.email = action.payload.email;
+      state.address_no = action.payload.address_no;
+      state.address_street = action.payload.address_street;
+      state.address_city = action.payload.address_city;
+      state.nic = action.payload.nic;
+      state.phone = action.payload.phone;
+      state.loggedIn = true;
+      state.userId = action.payload.userId;
+      state.role = action.payload.role;
     },
-  };
+    logout: (state) => {
+      state.name = '';
+      state.email = '';
+      state.address_no = '';
+      state.address_street = '';
+      state.address_city = '';
+      state.nic = '';
+      state.phone = '';
+      state.loggedIn = false;
+      state.userId = null;
+      state.role = '';
+    }
+  }
+});
 
-const userSlice = createSlice({
-    name: 'user',
-    initialState,
-    reducers: {
-        setUser: (state , action) => {
-            state.user = action.payload
-            localStorage.setItem('name', action.payload.name || '');
-            localStorage.setItem('email', action.payload.email || '');
-            localStorage.setItem('loggedIn', action.payload.loggedIn || false);
-        },
-
-        clearUser: (state) => {
-            state.user = {
-              name: null,
-              email: null,
-              loggedIn: false,
-            };
-            localStorage.removeItem('name');
-            localStorage.removeItem('email');
-            localStorage.removeItem('loggedIn');
-          },
-        },
-      });
-
-
-export const{setUser , clearUser} = userSlice.actions;
+export const { setUser, logout } = userSlice.actions;
 export default userSlice.reducer;

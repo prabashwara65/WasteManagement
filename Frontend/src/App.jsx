@@ -1,4 +1,6 @@
 import { BrowserRouter , Routes , Route } from 'react-router-dom'
+import { Provider } from "react-redux";
+import store from "../src/ReduxTool/Store";
 import Home from './pages/Home'
 import Register from './pages/Register'
 import Login from './pages/Login'
@@ -18,31 +20,32 @@ function App() {
 
   return (
     <>
-      <BrowserRouter >
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/Register' element={<Register />} />
-          <Route path='/Login' element={<Login />} />
-          <Route path='/Dashboard' element={<Dashboard />} />
 
-          <Route path='/viewAdmin' element={<Admin/>} />
-          <Route path='/createAdmin' element={<CreateAdmin/>} />
-          <Route path='/viewAdmin/updateAdmin/:id' element={<UpdateAdmin/>} />
+      <Provider store={store}>
+        <BrowserRouter >
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/Register' element={<Register />} />
+            <Route path='/Login' element={<Login />} />
+            <Route path='/Dashboard' element={<Dashboard />} />
 
-          <Route path='/collectorDashboard' element={<CollectorDashboard/>} />
+            <Route path='/viewAdmin' element={<Admin/>} />
+            <Route path='/createAdmin' element={<CreateAdmin/>} />
+            <Route path='/viewAdmin/updateAdmin/:id' element={<UpdateAdmin/>} />
 
-          <Route path='/ViewCollectors' element={<ViewCollectors/>} />
-          <Route path='/CreateCollectors' element={<CreateCollectors/>} />
-          <Route path='/UpdateCollector/:id' element={<UpdateCollectors/>} />
+            <Route path='/collectorDashboard' element={<CollectorDashboard/>} />
 
-          <Route path='/ViewCityAssign' element={<ViewCityAssign/>} />
-          <Route path='/CreateCityAssign' element={<CreateCityAssign/>} />
-          <Route path='/UpdateCityAssign/:id' element={<UpdateCityAssign/>} />
+            <Route path='/ViewCollectors' element={<ViewCollectors/>} />
+            <Route path='/CreateCollectors' element={<CreateCollectors/>} />
+            <Route path='/UpdateCollector/:id' element={<UpdateCollectors/>} />
 
+            <Route path='/ViewCityAssign' element={<ViewCityAssign/>} />
+            <Route path='/CreateCityAssign' element={<CreateCityAssign/>} />
+            <Route path='/UpdateCityAssign/:id' element={<UpdateCityAssign/>} />
 
-
-        </Routes>
-      </BrowserRouter>
+          </Routes>
+        </BrowserRouter>
+      </Provider>
     </>
   )
 }
