@@ -39,12 +39,13 @@ router.post('/create', async (req, res) => {
 // Update data in database
 router.put('/update/:id', async (req, res) => {
     const db = await connectToDatabase(); 
-    const sql = "UPDATE admins SET `Colombo` = ?, `Kandy` = ?, `Galle` = ? , `Jaffna` = ? WHERE id = ?";
+    const sql = "UPDATE city SET `colombo` = ?, `kandy` = ?, `galle` = ? , `jaffna` = ? WHERE id = ?";
     const values = [
-        req.body.colombo,
-        req.body.kandy,
-        req.body.galle,
-        req.body.jaffna,
+        req.body.Colombo,
+        req.body.Kandy,
+        req.body.Galle,
+        req.body.Jaffna,
+        req.params.id
     ];
 
     try {
@@ -57,7 +58,7 @@ router.put('/update/:id', async (req, res) => {
 });
 
 // View specific admin details
-router.get("/CityAssigns/:id", async (req, res) => {
+router.get("/ViewCityAssigns/:id", async (req, res) => {
     try {
       const db = await connectToDatabase();
       const [rows] = await db.query("SELECT * FROM city WHERE id = ?", [req.params.id]);

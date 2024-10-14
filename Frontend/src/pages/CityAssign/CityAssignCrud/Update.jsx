@@ -4,22 +4,22 @@ import axios from 'axios';
 
 const UpdateCityAssign = () => {
   const { id } = useParams(); // Get the ID from the URL parameters
-  const [colombo, setColombo] = useState('');
-  const [kandy, setKandy] = useState('');
-  const [galle, setGalle] = useState('');
-  const [jaffna, setJaffna] = useState('');
+  const [Colombo, setColombo] = useState('');
+  const [Kandy, setKandy] = useState('');
+  const [Galle, setGalle] = useState('');
+  const [Jaffna, setJaffna] = useState('');
   const navigate = useNavigate();
 
   // Fetch the city assignment data when the component mounts
   useEffect(() => {
     const fetchCityAssign = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/cityassign/${id}`);
+        const response = await axios.get(`http://localhost:3000/cityassign/ViewCityAssigns/${id}`);
         const cityAssign = response.data;
-        setColombo(cityAssign.colombo);
-        setKandy(cityAssign.kandy);
-        setGalle(cityAssign.galle);
-        setJaffna(cityAssign.jaffna);
+        setColombo(cityAssign.Colombo);
+        setKandy(cityAssign.Kandy);
+        setGalle(cityAssign.Galle);
+        setJaffna(cityAssign.Jaffna);
       } catch (error) {
         console.error('Error fetching city assignment:', error);
       }
@@ -32,10 +32,10 @@ const UpdateCityAssign = () => {
     e.preventDefault();
     axios
       .put(`http://localhost:3000/cityassign/update/${id}`, {
-        colombo,
-        kandy,
-        galle,
-        jaffna,
+        Colombo,
+        Kandy,
+        Galle,
+        Jaffna,
       })
       .then((res) => {
         console.log(res);
@@ -50,12 +50,12 @@ const UpdateCityAssign = () => {
         <h2 className="text-2xl mb-6 text-center font-bold text-blue-600">Update City Assign</h2>
 
         <div className="mb-4">
-          <label htmlFor="colombo" className="block text-gray-700 mb-2">Colombo</label>
+          <label htmlFor="Colombo" className="block text-gray-700 mb-2">Colombo</label>
           <input
             type="text"
-            id="colombo"
-            name="colombo"
-            value={colombo}
+            id="Colombo"
+            name="Colombo"
+            value={Colombo}
             onChange={(e) => setColombo(e.target.value)}
             placeholder="Enter Colombo"
             className="border border-gray-300 rounded-lg w-full p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -64,12 +64,12 @@ const UpdateCityAssign = () => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="kandy" className="block text-gray-700 mb-2">Kandy</label>
+          <label htmlFor="Kandy" className="block text-gray-700 mb-2">Kandy</label>
           <input
             type="text"
-            id="kandy"
-            name="kandy"
-            value={kandy}
+            id="Kandy"
+            name="Kandy"
+            value={Kandy}
             onChange={(e) => setKandy(e.target.value)}
             placeholder="Enter Kandy"
             className="border border-gray-300 rounded-lg w-full p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -78,12 +78,12 @@ const UpdateCityAssign = () => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="galle" className="block text-gray-700 mb-2">Galle</label>
+          <label htmlFor="Galle" className="block text-gray-700 mb-2">Galle</label>
           <input
             type="text"
-            id="galle"
-            name="galle"
-            value={galle}
+            id="Galle"
+            name="Galle"
+            value={Galle}
             onChange={(e) => setGalle(e.target.value)}
             placeholder="Enter Galle"
             className="border border-gray-300 rounded-lg w-full p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -92,12 +92,12 @@ const UpdateCityAssign = () => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="jaffna" className="block text-gray-700 mb-2">Jaffna</label>
+          <label htmlFor="Jaffna" className="block text-gray-700 mb-2">Jaffna</label>
           <input
             type="text"
-            id="jaffna"
-            name="jaffna"
-            value={jaffna}
+            id="Jaffna"
+            name="Jaffna"
+            value={Jaffna}
             onChange={(e) => setJaffna(e.target.value)}
             placeholder="Enter Jaffna"
             className="border border-gray-300 rounded-lg w-full p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
