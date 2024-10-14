@@ -17,7 +17,7 @@ app.use(express.json())
 
 app.use('/auth' , authRouter )
 app.use('/admins', adminRoute)
-app.use('/genUserRoute', userRoute)
+app.use('/genUserRoute', genUserRoute)
 app.use('/users',userRoute)
 app.use('/collectors', collectorRoutes)
 app.use('/cityassign', CityAssignRoutes)

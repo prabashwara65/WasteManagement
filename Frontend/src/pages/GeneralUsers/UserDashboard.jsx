@@ -55,7 +55,7 @@ const GeneralUserDashboard = () => {
   useEffect(() => {
     const fetchCollections = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/users/collections/2'); // Replace with actual user ID
+        const response = await axios.get('http://localhost:3000/genUserRoute/collections/2'); // Replace with actual user ID
         setWasteCollections(response.data);
         
       } catch (error) {
