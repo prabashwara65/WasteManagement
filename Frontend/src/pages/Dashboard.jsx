@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { MdDashboard } from "react-icons/md";
 import { FaUsers, FaChartArea } from "react-icons/fa";
-import { IoPersonAddSharp, IoSettingsSharp, IoLogOutOutline } from "react-icons/io5";
+import { IoPersonAddSharp, IoSettingsSharp, IoLogOutOutline , IoPeopleSharp , IoLocationSharp } from "react-icons/io5";
 import Overview from "./DashboardSideBar/DashboardOverview";
 import Administration from "./DashboardSideBar/AdministrationPanel";
 import Reports from "./DashboardSideBar/Reports";
@@ -9,6 +9,7 @@ import Settings from './DashboardSideBar/Settings';
 import AreaAssign from './CityAssign/CityAssign';
 import BinManagement from './DashboardSideBar/BinManagement';
 import WasteManagement from './DashboardSideBar/WasteManagement';
+import ViewCollectors from './CollectorCrud/ViewCollectors';
 
 function Dashboard() {
   // Get the active page from localStorage or default to 'overview'
@@ -30,6 +31,8 @@ function Dashboard() {
         return <Reports />;
       case 'Area Assign':
         return <AreaAssign/>;
+      case 'Manage Collectors':
+        return <ViewCollectors/>;
       case 'settings':
         return <Settings />;
       case 'manage waste':
@@ -70,8 +73,12 @@ function Dashboard() {
               <span>Analytics</span>
             </li>
             <li className={linkClass('Area Assign')} onClick={() => setActivePage('Area Assign')}>
-              <IoSettingsSharp className="mr-2" />
+              <IoLocationSharp className="mr-2" />
               <span>Area Assign</span>
+            </li>
+            <li className={linkClass('Manage Collectors')} onClick={() => setActivePage('Manage Collectors')}>
+              <IoPeopleSharp className="mr-2" />
+              <span>Manage Collectors</span>
             </li>
             <li className={linkClass('settings')} onClick={() => setActivePage('settings')}>
               <IoSettingsSharp className="mr-2" />
