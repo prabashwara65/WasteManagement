@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import {
     Box,
     Card,
@@ -13,15 +14,90 @@ import {
     TableRow,
     Paper,
 } from '@mui/material';
+import axios from 'axios';
+
 
 const CollectorProfile = () => {
+    const [totalWasteByOneCollector, setTotalWasteByOneCollector] = useState(0);
+    const [totalPlasticWaste, setTotalPlasticWaste] = useState(0);
+    const [totalEwaste, setTotalEwaste] = useState(0);
+    const [totalPolythene, setTotalPolythene] = useState(0);
+    const [totalFoodWaste, setTotalFoodWaste] = useState(0);
+
+
+    const user = 1;
+    console.log(user);
+    console.log(totalWasteByOneCollector);
+
+    // Fetch total waste collected by the collector
+    useEffect(() => {
+        fetchAllWasteCount();
+        fetchPlasticWaste();
+        fetchEwaste();
+        fetchPolytheneWaste();
+        fetchFoodWaste();
+
+    }, []);
+
+
+    const fetchAllWasteCount = async () => {
+        try {
+            const response = await axios.get(`http://localhost:3000/wasteCollections/countAllOneCollector/${user}`);
+            setTotalWasteByOneCollector(response.data.data[0]['count(*)']);
+        } catch (error) {
+            console.error("Error fetching waste count", error);
+        }
+    }
+
+    //fetch plastic waste
+    const fetchPlasticWaste = async () => {
+        try {
+            const response = await axios.get(`http://localhost:3000/wasteCollections/countAllPlasticsOneCollector/${user}`);
+            setTotalPlasticWaste(response.data.data[0]['count(*)']);
+        } catch (error) {
+            console.error("Error fetching waste count", error);
+        }
+    }
+
+    //fetch e-waste
+    const fetchEwaste = async () => {
+        try {
+            const response = await axios.get(`http://localhost:3000/wasteCollections/countAllEWasteOneCollector/${user}`);
+            setTotalEwaste(response.data.data[0]['count(*)']);
+        } catch (error) {
+            console.error("Error fetching waste count", error);
+        }
+    }
+
+    //fetch polythene waste
+    const fetchPolytheneWaste = async () => {
+        try {
+            const response = await axios.get(`http://localhost:3000/wasteCollections/countAllPolytheneOneCollector/${user}`);
+            setTotalPolythene(response.data.data[0]['count(*)']);
+        } catch (error) {
+            console.error("Error fetching waste count", error);
+        }
+    }
+
+    //fetch food waste
+    const fetchFoodWaste = async () => {
+        try {
+            const response = await axios.get(`http://localhost:3000/wasteCollections/countAllFoodOneCollector/${user}`);
+            setTotalFoodWaste(response.data.data[0]['count(*)']);
+        } catch (error) {
+            console.error("Error fetching waste count", error);
+        }
+    }
+
+
+
     // Sample data for summary cards and table
     const summaryData = [
-        { title: 'Total Collections', value: 120 },
-        { title: 'Pending Collections', value: 30 },
-        { title: 'Completed Collections', value: 90 },
-        { title: 'Collected Weight (kg)', value: 1500 },
-        { title: 'Active Routes', value: 3 },
+        { title: 'Total Collections', value: totalWasteByOneCollector },
+        { title: 'Food Collections', value: totalFoodWaste },
+        { title: 'Plastic Collection', value: totalPlasticWaste },
+        { title: 'E-waste Collection', value: totalEwaste },
+        { title: 'Polythene Collection', value: totalPolythene },
     ];
 
     const tableData = [
@@ -53,7 +129,7 @@ const CollectorProfile = () => {
                     <Card sx={{ height: '100%', borderRadius: '16px', backgroundColor: 'aqua' }}>
                         <CardContent>
                             <Typography variant="h6" gutterBottom>
-                                Summary Collection
+                                Your Summary Collection
                             </Typography>
                             <Grid container spacing={2}>
                                 {/* Total Collections Card taking full width */}
@@ -61,7 +137,7 @@ const CollectorProfile = () => {
                                     <Card sx={{ padding: '10px', textAlign: 'center', borderRadius: '16px' }}>
                                         <CardContent>
                                             <Typography variant="body1">Total Collections</Typography>
-                                            <Typography variant="h5">{summaryData[0].value}</Typography>
+                                        <Typography variant="h5">{totalWasteByOneCollector}</Typography>
                                         </CardContent>
                                     </Card>
                                 </Grid>
@@ -73,16 +149,16 @@ const CollectorProfile = () => {
                                     let backgroundColor;
                                     switch (index) {
                                         case 0:
-                                            backgroundColor = 'red';
+                                            backgroundColor = '#F37979';
                                             break;
                                         case 1:
-                                            backgroundColor = 'green';
+                                            backgroundColor = '#99F379';
                                             break;
                                         case 2:
-                                            backgroundColor = '#DAA520'; // Dark Yellow
+                                            backgroundColor = '#F3B679'; // Dark Yellow
                                             break;
                                         case 3:
-                                            backgroundColor = 'lightblue';
+                                            backgroundColor = '#79B8F3';
                                             break;
                                         default:
                                             backgroundColor = 'white';
