@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import ViewCityAssign from '../CityAssign/CityAssignCrud/View'; 
 
 const AreaCard = ({ areaName, position }) => {
   return (
@@ -87,6 +88,9 @@ const CityAssign = () => {
             </tr>
           </tbody>
         </table>
+      </div>
+      <div className="mt-8">
+        <ViewCityAssign />
       </div>
     </div>
   );

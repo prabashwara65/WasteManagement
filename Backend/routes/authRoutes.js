@@ -54,34 +54,54 @@ router.post('/register', async (req, res) => {
 //     nic: '',
 //     phone: '',
 
+
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
+
     try {
         const db = await connectToDatabase();
+
+        // Check if the user exists in the `users` table
+        const [userRows] = await db.query('SELECT * FROM users WHERE email = ?', [email]);
         
-        // Check if the user exists
-        const [rows] = await db.query('SELECT * FROM users WHERE email = ?', [email]);
-        if (rows.length === 0) {
-            return res.status(404).json({ message: "User does not exist" });
+        // Check if the user exists in the `collectors` table if not found in `users`
+        const [collectorRows] = userRows.length === 0 ? await db.query('SELECT * FROM collectors WHERE email = ?', [email]) : [];
+
+        let user = null;
+        let role = '';
+
+        // If user found in `users` table
+        if (userRows.length > 0) {
+            user = userRows[0];
+            role = 'user';
+        } 
+        // If collector found in `collectors` table
+        else if (collectorRows.length > 0) {
+            user = collectorRows[0];
+            role = 'collector';
+        } 
+        // If not found in either table
+        else {
+            return res.status(404).json({ message: "User or Collector does not exist" });
         }
 
-        const user = rows[0];
+        // Generate JWT token
+        const token = jwt.sign({ id: user.id }, process.env.JWT, { expiresIn: '3h' });
 
-        const token = jwt.sign({ id: user.id }, process.env.JWT, { expiresIn: '3h' , });
-
-        // Compare the plain text password (replace with bcrypt comparison if hashing is used)
-        if (user.password == password) {
+        // Compare password (replace with bcrypt comparison if hashing is used)
+        if (user.password === password) {
+            // Prepare response data
             const responseData = {
                 token: token,
-                name: user.username,
+                id: user.id,
+                name: user.username || user.name,  // Use appropriate field for users/collectors
                 email: user.email,
                 address_no: user.address_no,
                 address_street: user.address_street,
                 address_city: user.address_city,
                 nic: user.nic,
                 phone: user.phone,
-                role: user.role,
-
+                role: role,  // Either 'user' or 'collector'
             };
 
             return res.status(201).json(responseData);
@@ -92,6 +112,7 @@ router.post('/login', async (req, res) => {
         return res.status(500).json({ error: err.message });
     }
 });
+
 
 
 // Add this to your existing code
