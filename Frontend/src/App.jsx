@@ -8,6 +8,9 @@ import Dashboard from './pages/Dashboard'
 import Admin from './pages/Admin/ViewAdmin'
 import CreateAdmin from './pages/Admin/createAdmin'
 import UpdateAdmin from './pages/Admin/UpdateAdmin'
+
+import GeneralUserDashboard from './pages/GeneralUsers/UserDashboard'
+
 import CollectorDashboard from './pages/collector/CollectorDashboard'
 import ViewCollectors from './pages/CollectorCrud/ViewCollectors'
 import CreateCollectors from './pages/CollectorCrud/CreateCollector'
@@ -15,6 +18,7 @@ import UpdateCollectors from './pages/CollectorCrud/UpdateCollectors'
 import ViewCityAssign from './pages/CityAssign/CityAssignCrud/View'
 import CreateCityAssign from './pages/CityAssign/CityAssignCrud/Create'
 import UpdateCityAssign from './pages/CityAssign/CityAssignCrud/Update'
+
 
 function App() {
 
@@ -42,10 +46,14 @@ function App() {
             <Route path='/ViewCityAssign' element={<ViewCityAssign/>} />
             <Route path='/CreateCityAssign' element={<CreateCityAssign/>} />
             <Route path='/UpdateCityAssign/:id' element={<UpdateCityAssign/>} />
+            <Route path='/userDashboard' element={<GeneralUserDashboard />} />
+
+            <Route path='/collectorDashboard' element={<CollectorDashboard/>} />
 
           </Routes>
         </BrowserRouter>
       </Provider>
+
     </>
   )
 }
