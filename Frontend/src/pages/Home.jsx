@@ -116,12 +116,12 @@ const Home = () => {
             <div>
               {isFlatFee && (
                 <Typography variant="body2" className="text-green-600 mt-4">
-                  Price: LKR {cityValue.replace('FF-', '')}
+                  Flat Fee Price: LKR {cityValue.replace('FF-', '')}
                 </Typography>
               )}
               {isWeightBased && (
                 <Typography variant="body2" className="text-blue-600 mt-2">
-                  Per 1 Kg<br/>{cityValue.replace('WB-', '')}
+                  Weight Based Per 1 Kg<br/>{cityValue.replace('WB-', '')}
                 </Typography>
               )}
             </div>
