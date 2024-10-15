@@ -26,8 +26,8 @@ function ViewCityAssigns() {
   };
 
   return (
-    <div className="flex h-screen bg-blue-300 justify-center items-center">
-      <div className="w-3/4 bg-white rounded-lg shadow-lg p-5">
+    <div className="">
+      <div className=" bg-white rounded-lg shadow-lg p-5">
         <h2 className="text-2xl font-semibold text-center mb-5">City Assignments</h2>
         <div className="overflow-y-auto">
           <table className="mt-5 w-full border-collapse">

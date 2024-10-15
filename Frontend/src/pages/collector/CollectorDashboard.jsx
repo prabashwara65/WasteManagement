@@ -45,7 +45,7 @@ const CollectorDashboard = () => {
 
             <Box sx={{ flexGrow: 1}}>
                 {/* Top Bar */}
-                <HorizontalBar title="Dashboard" userName={userName} />
+                <HorizontalBar title="Dashboard" userName={"user name is - " + user.name + " id is - " + user.id} />
 
                 {/* Content Section */}
                 <Box sx={{ padding: '20px' }}>

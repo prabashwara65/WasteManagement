@@ -27,6 +27,7 @@ const Login = () => {
         const user = res.data;
         console.log(user);
         dispatch(setUser({
+          id: user.id,
           name: user.name,
           email: user.email,
           address_no: user.address_no,
@@ -36,10 +37,16 @@ const Login = () => {
           phone: user.phone,
         }));
 
+        // Navigate based on role
         if (res.data.role === 'admin') {
           navigate('/Dashboard');
-          return;
+          return; // Prevent navigating again to '/' after this
+        } else if (res.data.role === 'collector') {
+          navigate('/collectorDashboard');
+          return; // Prevent navigating again to '/' after this
         }
+
+        // Default navigation (e.g., for regular users)
         navigate('/');
       }
     } catch (err) {
