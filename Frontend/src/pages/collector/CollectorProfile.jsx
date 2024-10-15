@@ -13,6 +13,7 @@ import {
     TableHead,
     TableRow,
     Paper,
+    Avatar,
 } from '@mui/material';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
@@ -135,18 +136,53 @@ const CollectorProfile = () => {
             <Grid container spacing={2}>
                 {/* User Profile Card */}
                 <Grid item xs={12} md={6}>
-                    <Card sx={{ height: '100%', borderRadius: '16px', backgroundColor: '#ECFFDD' }}>
+                    <Card sx={{ padding: 2, borderRadius: '16px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', height: '100%', backgroundColor: '#ECFFDD'  }}>
                         <CardContent>
-                            <Typography variant="h5">{userDetails.name} Details</Typography>
-                            <Typography variant="body1">Name: {userDetails.name}</Typography>
-                            <Typography variant="body1">Email: {userDetails.email}</Typography>
-                            <Typography variant="body1">Role: {userDetails.address}</Typography>
-                            <Typography variant="body1">City: {userDetails.city}</Typography>
-                            <Typography variant="body1">Phone: {userDetails.phone}</Typography>
-                            <Typography variant="body1">Salary: {userDetails.salary}</Typography>
-
+                            <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
+                            {userDetails.name} Details
+                            </Typography>
+                            <Avatar alt={userDetails.username} src={userDetails.profilePic} sx={{ width: 100, height: 100, marginBottom: 2 }} />
+                            <Grid container spacing={1}>
+                            <Grid item xs={6}>
+                                <Typography variant="body1"><strong>Name :</strong></Typography>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Typography variant="body1">{userDetails.name}</Typography>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Typography variant="body1"><strong>Email :</strong></Typography>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Typography variant="body1">{userDetails.email}</Typography>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Typography variant="body1"><strong>Address No :</strong></Typography>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Typography variant="body1">{userDetails.address}</Typography>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Typography variant="body1"><strong>City :</strong></Typography>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Typography variant="body1">{userDetails.city}</Typography>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Typography variant="body1"><strong>Phone :</strong></Typography>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Typography variant="body1">{userDetails.phone}</Typography>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Typography variant="body1"><strong>Salary :</strong></Typography>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Typography variant="body1">{userDetails.salary}</Typography>
+                            </Grid>
+                            
+                            </Grid>
                         </CardContent>
-                    </Card>
+                        </Card>
                 </Grid>
 
                 {/* Summary Collection Section */}

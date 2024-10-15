@@ -25,14 +25,14 @@ const WasteManagement = () => {
     const [wasteData, setWasteData] = useState([]);
     const [foodCount, setFoodCount] = useState(0);
     const [plasticCount, setPlasticCount] = useState(0);
-    const [paperCount, setPaperCount] = useState(0);
+    const [polytheneCount, setPolytheneCount] = useState(0);
     const [eWasteCount, setEWasteCount] = useState(0);
 
     useEffect(() => {
         fetchWasteData();
         fetchFoodCount();
         fetchPlasticCount();
-        fetchPaperCount();
+        fetchPolytheneCount();
         fetchEWasteCount();
     }, []);
 
@@ -63,10 +63,10 @@ const WasteManagement = () => {
         }
     };
 
-    const fetchPaperCount = async () => {
+    const fetchPolytheneCount = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/wasteCollections/countAllPaper');
-            setPaperCount(response.data.data[0]['count(*)']);
+            const response = await axios.get('http://localhost:3000/wasteCollections/countAllPolythene');
+            setPolytheneCount(response.data.data[0]['count(*)']);
         } catch (error) {
             console.error("Error fetching paper count", error);
         }
@@ -119,8 +119,8 @@ const WasteManagement = () => {
                 <Grid item xs={12} sm={6} md={3}>
                     <Card sx={{ backgroundColor: '#F3B679', color: '#fff', borderRadius: '12px' }}>
                         <CardContent>
-                            <Typography variant="h6">Paper</Typography>
-                            <Typography variant="h4">{paperCount}</Typography>
+                            <Typography variant="h6">Polythene</Typography>
+                            <Typography variant="h4">{polytheneCount}</Typography>
                         </CardContent>
                     </Card>
                 </Grid>

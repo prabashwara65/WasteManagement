@@ -112,7 +112,7 @@ wasteCollectionRouter.get('/countAllFood', async (req, res) => {
 
 
 
-//count paper
+//count polythene
 wasteCollectionRouter.get('/countAllPolythene', async (req, res) => {
     const db = await connectToDatabase(); // Establish the database connection
     const sql = "select count(*) from wastecollection where type='polythene'"; // SQL query to get all bins

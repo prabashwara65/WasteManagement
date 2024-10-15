@@ -11,7 +11,7 @@ const Topbar = () => {
                 </Box>
                 
                 {/* App Name on the Right */}
-                <Typography variant="h6" sx={{ marginRight: '16px' }}>
+                <Typography variant="h6" sx={{ marginRight: '16px', color: '#259E73' }}>
                     My Dashboard
                 </Typography>
             </Toolbar>
