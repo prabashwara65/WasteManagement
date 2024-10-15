@@ -144,10 +144,10 @@ wasteCollectionRouter.get('/countAllEWaste', async (req, res) => {
 
 
 
-//count plastic for one user
-wasteCollectionRouter.get('/countAllPlasticsOneUser/:id', async (req, res) => {
+//count paper for one user
+wasteCollectionRouter.get('/countAllPaperOneUser/:id', async (req, res) => {
     const db = await connectToDatabase(); // Establish the database connection
-    const sql = "select count(*) from wastecollection w, users u where w.collected_from = u.id and w.type='plastic' and u.id = ?"; // SQL query to get all bins
+    const sql = "select sum(w.weight) as weight from wastecollection w, users u where w.collected_from = u.id and w.type='Paper' and u.id = ?"; // SQL query to get all bins
     const id = req.params.id; // Get the bin ID from request parameters
 
     try {
@@ -164,7 +164,7 @@ wasteCollectionRouter.get('/countAllPlasticsOneUser/:id', async (req, res) => {
 //count food for one user
 wasteCollectionRouter.get('/countAllFoodOneUser/:id', async (req, res) => {
     const db = await connectToDatabase(); // Establish the database connection
-    const sql = "select count(*) from wastecollection w, users u where w.collected_from = u.id and w.type='food' and u.id = ?"; // SQL query to get all bins
+    const sql = "select sum(w.weight) as weight from wastecollection w, users u where w.collected_from = u.id and w.type='Food' and u.id = ?"; // SQL query to get all bins
     const id = req.params.id; // Get the bin ID from request parameters
 
     try {
@@ -181,7 +181,7 @@ wasteCollectionRouter.get('/countAllFoodOneUser/:id', async (req, res) => {
 //count paper for one user
 wasteCollectionRouter.get('/countAllPolytheneOneUser/:id', async (req, res) => {
     const db = await connectToDatabase(); // Establish the database connection
-    const sql = "select count(*) from wastecollection w, users u where w.collected_from = u.id and w.type='polythene' and u.id = ?"; // SQL query to get all bins
+    const sql = "select sum(w.weight) as weight from wastecollection w, users u where w.collected_from = u.id and w.type='Polythene' and u.id = ?"; // SQL query to get all bins
     const id = req.params.id; // Get the bin ID from request parameters
 
     try {
@@ -198,7 +198,7 @@ wasteCollectionRouter.get('/countAllPolytheneOneUser/:id', async (req, res) => {
 //count ewaste for one user
 wasteCollectionRouter.get('/countAllEWasteOneUser/:id', async (req, res) => {
     const db = await connectToDatabase(); // Establish the database connection
-    const sql = "select count(*) from wastecollection w, users u where w.collected_from = u.id and w.type='E-Waste' and u.id = ?"; // SQL query to get all bins
+    const sql = "select sum(w.weight) as weight from wastecollection w, users u where w.collected_from = u.id and w.type='E-Waste' and u.id = ?"; // SQL query to get all bins
     const id = req.params.id; // Get the bin ID from request parameters
 
     try {
