@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box } from '@mui/material';
-import DrawerMenu from '../components/DrawerMenu';
-import HorizontalBar from '../components/HorizontalBar';
-import Topbar from '../components/Topbar';
+import DrawerMenu from '../collector/components/DrawerMenu';
+import HorizontalBar from '../collector/components/HorizontalBar';
+import Topbar from '../collector/components/Topbar';
 import Scanner from './CollectorScanner'; // Assuming you have this component
 import CollectorProfile from './CollectorProfile'; // Assuming you have this component
+import { useSelector, useDispatch } from 'react-redux';
 
 const CollectorDashboard = () => {
     const [selectedItem, setSelectedItem] = useState('Profile');
-    const [userName, setUserName] = useState('John Doe'); // Replace with actual user name
+    const user = useSelector((state) => state.user);
 
     // Define the menu items for the drawer
     const menuItems = [
@@ -41,9 +42,9 @@ const CollectorDashboard = () => {
                 onItemClick={handleMenuClick}
             />
 
-            <Box sx={{ flexGrow: 1 }}>
+            <Box sx={{ flexGrow: 1}}>
                 {/* Top Bar */}
-                <HorizontalBar title="Dashboard" userName={userName} />
+                <HorizontalBar title="Dashboard" userName={user.name} />
 
                 {/* Content Section */}
                 <Box sx={{ padding: '20px' }}>

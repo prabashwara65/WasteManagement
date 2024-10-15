@@ -6,6 +6,9 @@ import Overview from "./DashboardSideBar/DashboardOverview";
 import Administration from "./DashboardSideBar/AdministrationPanel";
 import Reports from "./DashboardSideBar/Reports";
 import Settings from './DashboardSideBar/Settings';
+import AreaAssign from './CityAssign/CityAssign';
+import BinManagement from './DashboardSideBar/BinManagement';
+import WasteManagement from './DashboardSideBar/WasteManagement';
 
 function Dashboard() {
   // Get the active page from localStorage or default to 'overview'
@@ -25,8 +28,14 @@ function Dashboard() {
         return <Administration />;
       case 'analytics':
         return <Reports />;
+      case 'Area Assign':
+        return <AreaAssign/>;
       case 'settings':
         return <Settings />;
+      case 'manage waste':
+        return <WasteManagement/>;
+      case 'manage bins':
+        return <BinManagement/>;
       case 'profile':
         return <div>Profile Content</div>;
       case 'logout':
@@ -60,6 +69,10 @@ function Dashboard() {
               <FaChartArea className="mr-2" />
               <span>Analytics</span>
             </li>
+            <li className={linkClass('Area Assign')} onClick={() => setActivePage('Area Assign')}>
+              <IoSettingsSharp className="mr-2" />
+              <span>Area Assign</span>
+            </li>
             <li className={linkClass('settings')} onClick={() => setActivePage('settings')}>
               <IoSettingsSharp className="mr-2" />
               <span>Settings</span>
@@ -67,6 +80,14 @@ function Dashboard() {
             <li className={linkClass('profile')} onClick={() => setActivePage('profile')}>
               <IoPersonAddSharp className="mr-2" />
               <span>Profile</span>
+            </li>
+            <li className={linkClass('manage waste')} onClick={() => setActivePage('manage waste')}>
+              <IoPersonAddSharp className="mr-2" />
+              <span>Manage Waste</span>
+            </li>
+            <li className={linkClass('manage bins')} onClick={() => setActivePage('manage bins')}>
+              <IoPersonAddSharp className="mr-2" />
+              <span>Manage Bins</span>
             </li>
             <li className={linkClass('logout')} onClick={() => setActivePage('logout')}>
               <IoLogOutOutline className="mr-2" />
