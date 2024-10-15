@@ -27,49 +27,52 @@ function ViewCollectors() {
   };
 
   return (
-    <div className="flex h-screen bg-blue-300 justify-center items-center">
-      <div className="w-3/4 bg-white rounded-lg p-3">
-        <Link
-          to="/CreateCollectors"
-          className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600 m-5"
-        >
-          Add New Collector
-        </Link>
-        <div className="mt-2 max-h-96 overflow-y-auto">
-          <table className="mt-10 w-full border-collapse">
+    <div className="min-h-screen flex flex-col justify-center items-center bg-[#FFFBF7]">
+      <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-5xl">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-3xl font-bold text-gray-800">Collectors List</h2>
+          <Link
+            to="/CreateCollectors"
+            className="bg-blue-600 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 transition duration-200"
+          >
+            + Add New Collector
+          </Link>
+        </div>
+
+        <div className="overflow-x-auto rounded-lg shadow-inner">
+          <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-gray-100">
-                <th className="px-6 py-3">Collector ID</th>
-                <th className="px-6 py-3">Name</th>
-                <th className="px-6 py-3">Email</th>
-                <th className="px-6 py-3">City</th>
-                <th className="px-6 py-3">Address</th>
-                <th className="px-6 py-3">Phone</th>
-                <th className="px-6 py-3">Salary</th>
-                <th className="px-6 py-3">Action</th>
+              <tr className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white">
+                <th className="px-6 py-4 text-sm font-medium uppercase tracking-wide">ID</th>
+                <th className="px-6 py-4 text-sm font-medium uppercase tracking-wide">Name</th>
+                <th className="px-6 py-4 text-sm font-medium uppercase tracking-wide">Email</th>
+                <th className="px-6 py-4 text-sm font-medium uppercase tracking-wide">City</th>
+                <th className="px-6 py-4 text-sm font-medium uppercase tracking-wide">Address</th>
+                <th className="px-6 py-4 text-sm font-medium uppercase tracking-wide">Phone</th>
+                <th className="px-6 py-4 text-sm font-medium uppercase tracking-wide">Salary</th>
+                <th className="px-6 py-4 text-sm font-medium uppercase tracking-wide">Actions</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="divide-y divide-gray-200">
               {collectors.map((collector) => (
-                <tr key={collector.id} className="border-b hover:bg-gray-50">
-                  <td className="px-6 py-3">{collector.id}</td>
-                  <td className="px-6 py-3">{collector.name}</td>
-                  <td className="px-6 py-3">{collector.email}</td>
-                  <td className="px-6 py-3">{collector.city}</td>
-                  <td className="px-6 py-3">{collector.address}</td>
-                  <td className="px-6 py-3">{collector.phone}</td>
-                  <td className="px-6 py-3">{collector.salary}</td>
-                  <td>
-                    {/* Use flex to align buttons in a row */}
-                    <div className="flex space-x-2">
+                <tr key={collector.id} className="hover:bg-gray-50 transition duration-200">
+                  <td className="px-6 py-4 text-gray-800">{collector.id}</td>
+                  <td className="px-6 py-4 text-gray-800">{collector.name}</td>
+                  <td className="px-6 py-4 text-gray-800">{collector.email}</td>
+                  <td className="px-6 py-4 text-gray-800">{collector.city}</td>
+                  <td className="px-6 py-4 text-gray-800">{collector.address}</td>
+                  <td className="px-6 py-4 text-gray-800">{collector.phone}</td>
+                  <td className="px-6 py-4 text-gray-800">{collector.salary}</td>
+                  <td className="px-6 py-4">
+                    <div className="flex space-x-4">
                       <button
-                        className="bg-gray-500 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded"
-                        onClick={() => handleEdit(collector.id)} // Navigate to edit page
+                        className="bg-yellow-500 text-white font-semibold py-2 px-4 rounded hover:bg-yellow-600 transition duration-200"
+                        onClick={() => handleEdit(collector.id)}
                       >
                         Edit
                       </button>
                       <button
-                        className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded"
+                        className="bg-red-500 text-white font-semibold py-2 px-4 rounded hover:bg-red-600 transition duration-200"
                         onClick={() => handleDelete(collector.id)}
                       >
                         Delete

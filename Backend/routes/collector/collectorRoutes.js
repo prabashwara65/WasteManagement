@@ -18,7 +18,7 @@ router.get("/collector", async (req, res) => {
 // Create a new collector
 router.post('/create', async (req, res) => {
     const db = await connectToDatabase(); // Establish the database connection
-    const sql = "INSERT INTO collectors (`name`, `email`, `city`, `address`, `phone`, `salary`) VALUES (?, ?, ?, ?, ?, ?)";
+    const sql = "INSERT INTO collectors (`name`, `email`, `city`, `address`, `phone`, `salary` , `password`) VALUES (?, ?, ?, ?, ?, ?, ?)";
     
     const values = [
         req.body.name,
@@ -26,7 +26,8 @@ router.post('/create', async (req, res) => {
         req.body.city,
         req.body.address,
         req.body.phone,
-        req.body.salary
+        req.body.salary,
+        req.body.password
     ];
     
     try {
@@ -41,7 +42,7 @@ router.post('/create', async (req, res) => {
 // Update collector data
 router.put('/update/:id', async (req, res) => {
     const db = await connectToDatabase(); 
-    const sql = "UPDATE collectors SET `name` = ?, `email` = ?, `city` = ?, `address` = ?, `phone` = ?, `salary` = ? WHERE id = ?";
+    const sql = "UPDATE collectors SET `name` = ?, `email` = ?, `city` = ?, `address` = ?, `phone` = ?, `salary` = ? , `password`= ?  WHERE id = ?";
     const values = [
         req.body.name,
         req.body.email,
@@ -49,6 +50,7 @@ router.put('/update/:id', async (req, res) => {
         req.body.address,
         req.body.phone,
         req.body.salary,
+        req.body.password,
         req.params.id // Add the ID to the values array
     ];
 
