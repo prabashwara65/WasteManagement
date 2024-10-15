@@ -8,7 +8,7 @@ import collectorRoutes from './routes/collector/collectorRoutes.js'
 import CityAssignRoutes from './routes/cityAssign/CityAssign.js'
 import binRoute from './routes/bin/binRoutes.js'
 import wasteCollectionRouter from './routes/collections/wasteCollectionRoutes.js'
-
+import reportsRoute from './routes/admin/reportsRoute.js'
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -25,7 +25,7 @@ app.use('/collectors', collectorRoutes)
 app.use('/cityassign', CityAssignRoutes)
 app.use('/bins', binRoute)
 app.use('/wasteCollections', wasteCollectionRouter)
-
+app.use('/reports', reportsRoute)  // all reports need routes included
 
 app.listen(process.env.PORT, () => {
     console.log("server is running")

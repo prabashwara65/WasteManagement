@@ -57,7 +57,7 @@ function Reports() {
       </div>
 
       {/* Displaying the content of the selected report */}
-      <div className="w-4/5 bg-white p-10 rounded-lg shadow-lg mb-5">
+      <div className="w-4/5 bg-white p-10 rounded-lg shadow-lg mb-10  overflow-y-auto">
         {renderContent()}
       </div>
     </div>

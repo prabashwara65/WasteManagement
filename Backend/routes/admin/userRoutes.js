@@ -19,10 +19,15 @@ router.get("/user", async (req, res) => {
 // Update data in database
 router.put('/update/:id', async (req, res) => {
     const db = await connectToDatabase(); 
-    const sql = "UPDATE users SET `username` = ?, `email` = ? WHERE id = ?";
+    const sql = "UPDATE users SET `username` = ?, `email` = ? , `address_no` = ? , `address_street` = ? , `address_city` = ?,`nic` = ?, `phone` = ? WHERE id = ?";
     const values = [
         req.body.username,
         req.body.email,
+        req.body.address_no,
+        req.body.address_street,
+        req.body.address_city,
+        req.body.nic,
+        req.body.phone,
         req.params.id // Add the ID to the values array
     ];
 

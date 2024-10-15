@@ -12,7 +12,6 @@ function Report() {
     const [wasteData, setWasteData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [predictedWasteData, setPredictedWasteData] = useState({});
     const [chartData, setChartData] = useState({
         labels: [], // X-axis labels
         datasets: [
@@ -50,11 +49,25 @@ function Report() {
         });
     };
 
+    // Fetch waste data from the API
+    useEffect(() => {
+        const fetchWasteData = async () => {
+            try {
+                const res = await axios.get('http://localhost:3000/reports/viewPredicted');
+                setWasteData(res.data);
+                updateChartData(res.data); // Update chart data when waste data is fetched
+                setLoading(false);
+            } catch (err) {
+                setError(err.message);
+                setLoading(false);
+            }
+        };
+
+        fetchWasteData();
+    }, []);
+
     const handlePrint = useReactToPrint({
         content: () => reportRef.current,
-        onBeforeGetContent: () => {
-            return Promise.resolve();
-        },
         documentTitle: 'Predictive Waste Generation Report',
     });
 
@@ -72,7 +85,8 @@ function Report() {
             y: 10,
             html2canvas: {
                 scale: 0.58,
-                useCORS: true
+                useCORS: true,
+                backgroundColor: '#fff'
             },
             margin: [10, 10, 10, 10],
             autoPaging: true,
@@ -85,7 +99,7 @@ function Report() {
       <div className="container p-4 h-screen mb-5">
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-xl font-bold">
-          Predictive Waste Generation and Collection Report
+            Predictive Waste Generation and Collection Report
           </h1>
           <div className="flex space-x-4">
             <button
@@ -108,19 +122,19 @@ function Report() {
         <div ref={reportRef} className="bg-white p-10 border rounded-lg">
           <header className="mb-5 border-b pb-3">
             <h2 className="text-xl font-semibold text-black">
-            Clean SCAPE: Garbage Collection System
+              Clean SCAPE: Garbage Collection System
             </h2>
             <p className="text-sm text-gray-800">
               Generated on: {new Date().toLocaleDateString()}
             </p>
             <p className="text-sm text-gray-800">
-              Contact Us:  CleanSCAPE@gmail.com
+              Contact Us: CleanSCAPE @gmail.com
             </p>
           </header>
 
           <main className="mb-5">
             <h1 className="text-xl font-bold p-2">
-                Predictive Waste Generation and Collection Report
+              Predictive Waste Generation and Collection Report
             </h1>
             <h4 className="text-lg font-bold text-black">Purpose</h4>
             <p className="text-black text-justify">
@@ -134,7 +148,7 @@ function Report() {
             <h4 className="text-lg font-bold text-black mt-5">Key Metrics</h4>
             <ul className="list-disc ml-5">
               <li className="text-black">
-                Predicted waste generation by area for the next month/year
+                Predicted waste generation by area for the next month
               </li>
               <li className="text-black">
                 Required collection frequency and resources based on forecasted
@@ -149,8 +163,15 @@ function Report() {
             <h4 className="text-lg font-bold text-black mt-5 mb-2">
               Predicted Waste Generation Trend
             </h4>
-            <div className="bg-white p-5 border rounded-lg mb-4">
-              {!loading && chartData && <Line data={chartData} />}
+            <div
+              className="bg-white p-5 border rounded-lg mb-4"
+              style={{ backgroundColor: "white" }}
+            >
+              {!loading && chartData && (
+                <div style={{ backgroundColor: "white" }}>
+                  <Line data={chartData} />
+                </div>
+              )}
             </div>
 
             <h4 className="text-lg font-bold text-black mt-5">Data Analysis</h4>
@@ -158,12 +179,12 @@ function Report() {
               <p>Loading waste data...</p>
             ) : error ? (
               <p className="text-red-500">Error: {error}</p>
-            ) : predictedWasteData &&
-              Object.keys(predictedWasteData).length > 0 ? (
+            ) : wasteData.length > 0 ? (
               <table className="table-auto w-full mt-4">
                 <thead className="bg-gray-400">
                   <tr className="font-semibold text-black text-center">
                     <th className="px-4 py-2">Area</th>
+                    <th className="px-4 py-2">Description of Area </th>
                     <th className="px-4 py-2">Predicted Waste (tons)</th>
                     <th className="px-4 py-2">
                       Suggested Collection Frequency
@@ -178,13 +199,16 @@ function Report() {
                         {item.area}
                       </td>
                       <td className="border px-4 py-2 text-black border-2 text-center border-black">
+                        {item.notes}
+                      </td>
+                      <td className="border px-4 py-2 text-black border-2 text-center border-black">
                         {item.predictedWaste} tons
                       </td>
                       <td className="border px-4 py-2 text-black border-2 text-center border-black">
-                        {item.suggestedFrequency}
+                        {item.frequency}
                       </td>
                       <td className="border px-4 py-2 text-black border-2 text-center border-black">
-                        {item.recommendedResources}
+                        {item.resources}
                       </td>
                     </tr>
                   ))}
@@ -197,7 +221,7 @@ function Report() {
 
           <footer className="border-t pt-3">
             <p className="text-sm text-gray-500">
-              © 2024  Clean SCAPE Report System
+              © 2024 Clean SCAPE  Report System
             </p>
           </footer>
         </div>
