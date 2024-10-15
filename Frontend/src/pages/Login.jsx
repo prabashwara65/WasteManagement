@@ -44,6 +44,9 @@ const Login = () => {
         } else if (res.data.role === 'collector') {
           navigate('/collectorDashboard');
           return; // Prevent navigating again to '/' after this
+        }else if (res.data.role === 'user') {
+          navigate('/userDashboard');
+          return; // Prevent navigating again to '/' after this
         }
 
         // Default navigation (e.g., for regular users)
