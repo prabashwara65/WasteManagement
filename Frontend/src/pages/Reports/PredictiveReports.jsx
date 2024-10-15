@@ -4,6 +4,8 @@ import jsPDF from 'jspdf';
 import axios from 'axios';
 import { Line } from 'react-chartjs-2'; 
 import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement, Title, Tooltip, Legend, Filler } from 'chart.js';
+import SettingsSingleton from './DesignPatterns/SettingsSingleton'; 
+
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Title, Tooltip, Legend, Filler);
 
@@ -95,6 +97,13 @@ function Report() {
         });
     };
 
+    const changeReportFormat = () => {
+      const currentSettings = SettingsSingleton.getSettings();
+      const newFormat = currentSettings.reportFormat === 'PDF' ? 'HTML' : 'PDF';
+      SettingsSingleton.setSettings({ reportFormat: newFormat });
+      alert(`Report format changed to: ${newFormat}`);
+  };
+
     return (
       <div className="container p-4 h-screen mb-5">
         <div className="flex justify-between items-center mb-4">
@@ -115,6 +124,13 @@ function Report() {
               className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
             >
               Print Report
+            </button>
+
+            <button
+              onClick={changeReportFormat}
+              className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"
+            >
+              Change Report Format
             </button>
           </div>
         </div>

@@ -41,7 +41,7 @@ function Reports() {
                 : "bg-gradient-to-r from-gray-500 to-gray-600"
             }`}
         >
-          Zone-Based Garbage Collection Report
+          Zone-Based Garbage Collectors Report
         </button>
         <button
           onClick={() => setActiveSection("report3")}
