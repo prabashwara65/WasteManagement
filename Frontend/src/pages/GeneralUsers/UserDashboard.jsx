@@ -25,6 +25,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 import Profile from './Profile';
 import SchedulePickup from './SchedulePickup';
@@ -33,6 +34,7 @@ const GeneralUserDashboard = () => {
   const [selectedScreen, setSelectedScreen] = useState('Dashboard');
   const userName = "John Doe"; // Replace this with actual logged-in user data
   const [wasteCollections, setWasteCollections] = useState([]);
+  const user = useSelector((state) => state.user);
 
   // Sample data for waste collections
   // const wasteCollections = [
@@ -55,7 +57,7 @@ const GeneralUserDashboard = () => {
   useEffect(() => {
     const fetchCollections = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/genUserRoute/collections/2'); // Replace with actual user ID
+        const response = await axios.get(`http://localhost:3000/genUserRoute/collections/${user.id}`); // Replace with actual user ID
         setWasteCollections(response.data);
         
       } catch (error) {
@@ -252,7 +254,7 @@ const GeneralUserDashboard = () => {
             </>
           )}
           {selectedScreen === 'Profile' && <Profile />}
-          {selectedScreen === 'Schedule Pickup' && <SchedulePickup />}
+          {selectedScreen === 'Schedule Pickup' && <SchedulePickup id={user.id}/>}
         </div>
       </div>
     </div>

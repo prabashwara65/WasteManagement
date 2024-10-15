@@ -1,5 +1,4 @@
-// Profile.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Typography,
   Card,
@@ -10,42 +9,46 @@ import {
   FormControl,
   FormHelperText,
   Alert,
-  Avatar, // Import Avatar component
+  Avatar,
 } from '@mui/material';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const Profile = () => {
-  // State for user details
-  const [userDetails] = useState({
-    id: '001',
-    name: 'John Doe',
-    nic: '123456789V',
-    address: '123 Main St',
-    city: 'Anytown',
-    contact: '(123) 456-7890',
-    email: 'johndoe@example.com',
-    profilePic: 'https://via.placeholder.com/150' // Add a placeholder URL or the actual image URL
-  });
-
-  // State for the form fields and validation errors
-  const [formData, setFormData] = useState({ ...userDetails });
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
+  const [userDetails, setUserDetails] = useState({});
+  const [formData, setFormData] = useState({});
+  const user = useSelector((state) => state.user);
 
-  // Handle input change
+  useEffect(() => {
+    fetchUserDetails();
+  }, []);
+
+  const fetchUserDetails = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3000/genUserRoute/user/${user.id}`);
+      setUserDetails(response.data);
+      setFormData(response.data); // Initialize formData with fetched user details
+    } catch (error) {
+      console.error('Error fetching user details:', error);
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    setErrors({ ...errors, [name]: '' }); // Clear error on change
+    setErrors({ ...errors, [name]: '' });
   };
 
-  // Validate form fields
   const validate = () => {
     const newErrors = {};
-    if (!formData.name) newErrors.name = 'Name is required';
+    if (!formData.username) newErrors.username = 'Name is required';
     if (!formData.nic) newErrors.nic = 'NIC is required';
-    if (!formData.address) newErrors.address = 'Address is required';
-    if (!formData.city) newErrors.city = 'City is required';
-    if (!formData.contact) newErrors.contact = 'Contact number is required';
+    if (!formData.address_no) newErrors.address_no = 'Address No is required';
+    if (!formData.address_street) newErrors.address_street = 'Street is required';
+    if (!formData.address_city) newErrors.address_city = 'City is required';
+    if (!formData.phone) newErrors.phone = 'Contact number is required';
     if (!formData.email) {
       newErrors.email = 'Email is required';
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
@@ -55,13 +58,24 @@ const Profile = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validate()) {
-      setSuccessMessage('Profile updated successfully!');
-      // Here you can add the code to update user details
-      console.log('Updated User Details:', formData);
+      try {
+        await axios.put(`http://localhost:3000/genUserRoute/update/${user.id}`, formData);
+        setSuccessMessage('Profile updated successfully!');
+
+        // Refetch updated user details to refresh the displayed data
+        fetchUserDetails();
+
+        // Make success message disappear after 3 seconds
+        setTimeout(() => {
+          setSuccessMessage('');
+        }, 3000);
+      } catch (error) {
+        console.error('Error updating profile:', error);
+        setErrors({ submit: 'Error updating profile. Please try again.' });
+      }
     }
   };
 
@@ -69,62 +83,51 @@ const Profile = () => {
     <Grid container spacing={3}>
       {/* User Details Section */}
       <Grid item xs={12} md={6}>
-        <Card
-          sx={{
-            padding: 2,
-            borderRadius: '16px',
-            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-            height: '100%', // Set height to 100%
-          }}
-        >
+        <Card sx={{ padding: 2, borderRadius: '16px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', height: '100%' }}>
           <CardContent>
             <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
               User Profile
             </Typography>
-            <Avatar
-              alt={userDetails.name}
-              src={userDetails.profilePic}
-              sx={{ width: 100, height: 100, marginBottom: 2 }} // Set size and margin
-            />
+            <Avatar alt={userDetails.username} src={userDetails.profilePic} sx={{ width: 100, height: 100, marginBottom: 2 }} />
             <Grid container spacing={1}>
               <Grid item xs={6}>
-                <Typography variant="body1"><strong>User ID:</strong></Typography>
+                <Typography variant="body1"><strong>Name :</strong></Typography>
               </Grid>
               <Grid item xs={6}>
-                <Typography variant="body1">{userDetails.id}</Typography>
+                <Typography variant="body1">{userDetails.username}</Typography>
               </Grid>
               <Grid item xs={6}>
-                <Typography variant="body1"><strong>Name:</strong></Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <Typography variant="body1">{userDetails.name}</Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <Typography variant="body1"><strong>NIC:</strong></Typography>
+                <Typography variant="body1"><strong>NIC :</strong></Typography>
               </Grid>
               <Grid item xs={6}>
                 <Typography variant="body1">{userDetails.nic}</Typography>
               </Grid>
               <Grid item xs={6}>
-                <Typography variant="body1"><strong>Address:</strong></Typography>
+                <Typography variant="body1"><strong>Address No :</strong></Typography>
               </Grid>
               <Grid item xs={6}>
-                <Typography variant="body1">{userDetails.address}</Typography>
+                <Typography variant="body1">{userDetails.address_no}</Typography>
               </Grid>
               <Grid item xs={6}>
-                <Typography variant="body1"><strong>City:</strong></Typography>
+                <Typography variant="body1"><strong>Street :</strong></Typography>
               </Grid>
               <Grid item xs={6}>
-                <Typography variant="body1">{userDetails.city}</Typography>
+                <Typography variant="body1">{userDetails.address_street}</Typography>
               </Grid>
               <Grid item xs={6}>
-                <Typography variant="body1"><strong>Contact No:</strong></Typography>
+                <Typography variant="body1"><strong>City :</strong></Typography>
               </Grid>
               <Grid item xs={6}>
-                <Typography variant="body1">{userDetails.contact}</Typography>
+                <Typography variant="body1">{userDetails.address_city}</Typography>
               </Grid>
               <Grid item xs={6}>
-                <Typography variant="body1"><strong>Email:</strong></Typography>
+                <Typography variant="body1"><strong>Contact No :</strong></Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography variant="body1">{userDetails.phone}</Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography variant="body1"><strong>Email :</strong></Typography>
               </Grid>
               <Grid item xs={6}>
                 <Typography variant="body1">{userDetails.email}</Typography>
@@ -136,14 +139,7 @@ const Profile = () => {
 
       {/* Update Profile Form Section */}
       <Grid item xs={12} md={6}>
-        <Card
-          sx={{
-            padding: 2,
-            borderRadius: '16px',
-            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-            height: '100%', // Set height to 100%
-          }}
-        >
+        <Card sx={{ padding: 2, borderRadius: '16px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', height: '100%' }}>
           <CardContent>
             <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
               Update Profile
@@ -153,60 +149,82 @@ const Profile = () => {
                 {successMessage}
               </Alert>
             )}
+            {errors.submit && (
+              <Alert severity="error" sx={{ mb: 2 }}>
+                {errors.submit}
+              </Alert>
+            )}
             <form onSubmit={handleSubmit}>
-              <FormControl fullWidth margin="normal" error={Boolean(errors.name)}>
+              <FormControl fullWidth margin="normal" error={Boolean(errors.username)}>
                 <TextField
                   label="Name"
-                  name="name"
-                  value={formData.name}
+                  name="username"
+                  variant="outlined"
+                  value={formData.username || ''}
                   onChange={handleChange}
                   required
                 />
-                <FormHelperText>{errors.name}</FormHelperText>
+                <FormHelperText>{errors.username}</FormHelperText>
               </FormControl>
 
               <FormControl fullWidth margin="normal" error={Boolean(errors.nic)}>
                 <TextField
                   label="NIC"
                   name="nic"
-                  value={formData.nic}
+                  variant="outlined"
+                  value={formData.nic || ''}
                   onChange={handleChange}
                   required
                 />
                 <FormHelperText>{errors.nic}</FormHelperText>
               </FormControl>
 
-              <FormControl fullWidth margin="normal" error={Boolean(errors.address)}>
+              <FormControl fullWidth margin="normal" error={Boolean(errors.address_no)}>
                 <TextField
-                  label="Address"
-                  name="address"
-                  value={formData.address}
+                  label="Address No"
+                  name="address_no"
+                  variant="outlined"
+                  value={formData.address_no || ''}
                   onChange={handleChange}
                   required
                 />
-                <FormHelperText>{errors.address}</FormHelperText>
+                <FormHelperText>{errors.address_no}</FormHelperText>
               </FormControl>
 
-              <FormControl fullWidth margin="normal" error={Boolean(errors.city)}>
+              <FormControl fullWidth margin="normal" error={Boolean(errors.address_street)}>
+                <TextField
+                  label="Street"
+                  name="address_street"
+                  variant="outlined"
+                  value={formData.address_street || ''}
+                  onChange={handleChange}
+                  required
+                />
+                <FormHelperText>{errors.address_street}</FormHelperText>
+              </FormControl>
+
+              <FormControl fullWidth margin="normal" error={Boolean(errors.address_city)}>
                 <TextField
                   label="City"
-                  name="city"
-                  value={formData.city}
+                  name="address_city"
+                  variant="outlined"
+                  value={formData.address_city || ''}
                   onChange={handleChange}
                   required
                 />
-                <FormHelperText>{errors.city}</FormHelperText>
+                <FormHelperText>{errors.address_city}</FormHelperText>
               </FormControl>
 
-              <FormControl fullWidth margin="normal" error={Boolean(errors.contact)}>
+              <FormControl fullWidth margin="normal" error={Boolean(errors.phone)}>
                 <TextField
                   label="Contact No"
-                  name="contact"
-                  value={formData.contact}
+                  name="phone"
+                  variant="outlined"
+                  value={formData.phone || ''}
                   onChange={handleChange}
                   required
                 />
-                <FormHelperText>{errors.contact}</FormHelperText>
+                <FormHelperText>{errors.phone}</FormHelperText>
               </FormControl>
 
               <FormControl fullWidth margin="normal" error={Boolean(errors.email)}>
@@ -214,7 +232,8 @@ const Profile = () => {
                   label="Email"
                   name="email"
                   type="email"
-                  value={formData.email}
+                  variant="outlined"
+                  value={formData.email || ''}
                   onChange={handleChange}
                   required
                 />
