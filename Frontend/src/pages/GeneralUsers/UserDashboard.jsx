@@ -36,38 +36,69 @@ const GeneralUserDashboard = () => {
   const [wasteCollections, setWasteCollections] = useState([]);
   const user = useSelector((state) => state.user);
 
-  // Sample data for waste collections
-  // const wasteCollections = [
-  //   { id: 1, wasteType: 'Food Waste', binId: 'BIN001', date: 'Oct 1, 2024', time: '10:00 AM' },
-  //   { id: 2, wasteType: 'Polythene', binId: 'BIN002', date: 'Oct 2, 2024', time: '11:30 AM' },
-  //   { id: 3, wasteType: 'Paper', binId: 'BIN003', date: 'Oct 3, 2024', time: '09:15 AM' },
-  //   { id: 1, wasteType: 'Food Waste', binId: 'BIN001', date: 'Oct 1, 2024', time: '10:00 AM' },
-  //   { id: 2, wasteType: 'Polythene', binId: 'BIN002', date: 'Oct 2, 2024', time: '11:30 AM' },
-  //   { id: 3, wasteType: 'Paper', binId: 'BIN003', date: 'Oct 3, 2024', time: '09:15 AM' },
-  //   { id: 1, wasteType: 'Food Waste', binId: 'BIN001', date: 'Oct 1, 2024', time: '10:00 AM' },
-  //   { id: 2, wasteType: 'Polythene', binId: 'BIN002', date: 'Oct 2, 2024', time: '11:30 AM' },
-  //   { id: 3, wasteType: 'Paper', binId: 'BIN003', date: 'Oct 3, 2024', time: '09:15 AM' },
-  //   { id: 1, wasteType: 'Food Waste', binId: 'BIN001', date: 'Oct 1, 2024', time: '10:00 AM' },
-  //   { id: 2, wasteType: 'Polythene', binId: 'BIN002', date: 'Oct 2, 2024', time: '11:30 AM' },
-  //   { id: 3, wasteType: 'Paper', binId: 'BIN003', date: 'Oct 3, 2024', time: '09:15 AM' },
-  //   // Add more records as needed
-  // ];
+  const [foodWeight, setFoodWeight] = useState(0);
+  const [polytheWeight, setPolytheneWeight] = useState(0);
+  const [paperWeight, setPaperWeight] = useState(0);
+  const [binCount, setBinCount] = useState(0);
 
   // Fetch waste collection records
   useEffect(() => {
-    const fetchCollections = async () => {
-      try {
-        const response = await axios.get(`http://localhost:3000/genUserRoute/collections/${user.id}`); // Replace with actual user ID
-        setWasteCollections(response.data);
-        
-      } catch (error) {
-        console.error('Error fetching waste collection records:', error);
-        
-      };
-    };
     fetchCollections();
+    fetchFoodWeight();
+    fetchPaperWeight();
+    fetchPolytheneWeight();
+    fetchBinCount();
 
   }, []);
+
+  const fetchCollections = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3000/genUserRoute/collections/${user.id}`); // Replace with actual user ID
+      setWasteCollections(response.data);
+      
+    } catch (error) {
+      console.error('Error fetching waste collection records:', error);
+      
+    };
+  };
+
+  const fetchFoodWeight = async () => {
+    try {
+        const response = await axios.get(`http://localhost:3000/wasteCollections/countAllFoodOneUser/${user.id}`);
+        setFoodWeight(response.data.data[0]['weight']);
+        console.log(response.data.data);
+    } catch (error) {
+        console.error("Error fetching food count", error);
+    }
+  };
+
+  const fetchPolytheneWeight = async () => {
+      try {
+          const response = await axios.get(`http://localhost:3000/wasteCollections/countAllPolytheneOneUser/${user.id}`);
+          setPolytheneWeight(response.data.data[0]['weight']);
+      } catch (error) {
+          console.error("Error fetching polythene count", error);
+      }
+  };
+
+  const fetchPaperWeight = async () => {
+      try {
+          const response = await axios.get(`http://localhost:3000/wasteCollections/countAllPaperOneUser/${user.id}`);
+          setPaperWeight(response.data.data[0]['weight']);
+      } catch (error) {
+          console.error("Error fetching paper count", error);
+      }
+  };
+
+  const fetchBinCount = async () => {
+    try {
+        const response = await axios.get(`http://localhost:3000/bins/countAll/${user.id}`);
+        setBinCount(response.data.data[0]['count(*)']);
+    } catch (error) {
+        console.error("Error fetching bin count", error);
+    }
+};
+
 
   const handleDrawerSelection = (screen) => {
     setSelectedScreen(screen);
@@ -116,12 +147,12 @@ const GeneralUserDashboard = () => {
         </div>
       </Drawer>
 
-      <div style={{ flexGrow: 1, marginLeft: 240 }}>
+      <div style={{ flexGrow: 2, marginLeft: 240 }}>
         <AppBar position="static" sx={{ backgroundColor: '#BAFFD9' }}>
           <Toolbar sx={{ paddingLeft: '10px' }}>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
-              <img src="/path/to/logo.png" alt="Company Logo" style={{ height: 40, marginRight: 10 }} />
-              Company Name
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1, display: 'flex', alignItems: 'center',color:'#259E73',fontWeight:'bold',fontSize:'32px' }}>
+              <img src="/path/to/logo.png"  style={{ height: 40, marginRight: 10 }} />
+              Clean SCAPE
             </Typography>
           </Toolbar>
         </AppBar>
@@ -158,7 +189,7 @@ const GeneralUserDashboard = () => {
                     <Typography variant="h6" sx={{ fontWeight: '600', textAlign: 'center' }}>
                       Food Waste
                     </Typography>
-                    <Typography variant="body1" sx={{ textAlign: 'center' }}>Weight: 20 kg</Typography>
+                    <Typography variant="body1" sx={{ textAlign: 'center' }}>{foodWeight}Kg</Typography>
                   </CardContent>
                 </Card>
                 <Card sx={{ backgroundColor: '#FBDCDC', borderRadius: '16px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', flex: 1, marginRight: '10px' }}>
@@ -166,7 +197,7 @@ const GeneralUserDashboard = () => {
                     <Typography variant="h6" sx={{ fontWeight: '600', textAlign: 'center' }}>
                       Polythene
                     </Typography>
-                    <Typography variant="body1" sx={{ textAlign: 'center' }}>Weight: 15 kg</Typography>
+                    <Typography variant="body1" sx={{ textAlign: 'center' }}>{polytheWeight}Kg</Typography>
                   </CardContent>
                 </Card>
                 <Card sx={{ backgroundColor: '#CFE6F9', borderRadius: '16px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', flex: 1 }}>
@@ -174,7 +205,7 @@ const GeneralUserDashboard = () => {
                     <Typography variant="h6" sx={{ fontWeight: '600', textAlign: 'center' }}>
                       Paper
                     </Typography>
-                    <Typography variant="body1" sx={{ textAlign: 'center' }}>Weight: 25 kg</Typography>
+                    <Typography variant="body1" sx={{ textAlign: 'center' }}>{paperWeight}Kg</Typography>
                   </CardContent>
                 </Card>
               </div>
@@ -204,10 +235,10 @@ const GeneralUserDashboard = () => {
                   <Card sx={{ backgroundColor: 'white', borderRadius: '16px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', height: '100%' }}>
                     <CardContent sx={{ textAlign: 'center', padding: '20px' }}>
                       <Typography variant="h6" sx={{ fontWeight: '600', color: 'black' }}>
-                        Total Collection
+                        Total Bins
                       </Typography>
                       <Typography variant="h5" sx={{ fontWeight: 'bold', color: '#30A37A' }}>
-                        10 Collections
+                        {binCount}
                       </Typography>
                     </CardContent>
                   </Card>
