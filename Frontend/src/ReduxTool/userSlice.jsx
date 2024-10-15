@@ -2,6 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+  id: localStorage.getItem('id') || '',
   name: localStorage.getItem('name') || '',
   email: localStorage.getItem('email') || '',
   address_no: localStorage.getItem('address_no') || '',
@@ -18,6 +19,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
+      state.id = action.payload.id;
       state.name = action.payload.name;
       state.email = action.payload.email;
       state.address_no = action.payload.address_no;
@@ -29,6 +31,7 @@ export const userSlice = createSlice({
       state.role = action.payload.role;
 
       // Save to localStorage
+      localStorage.setItem('id', action.payload.id);
       localStorage.setItem('name', action.payload.name);
       localStorage.setItem('email', action.payload.email);
       localStorage.setItem('address_no', action.payload.address_no);
@@ -40,6 +43,7 @@ export const userSlice = createSlice({
       localStorage.setItem('role', action.payload.role);
     },
     logout: (state) => {
+      state.id = '';
       state.name = '';
       state.email = '';
       state.address_no = '';
